@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.UserDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <collection property="roles" ofType="com.cuterwrite.dbfinal.entity.Role">
+    	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+    	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, `password`,role.role_id,role_name
+  </sql>
+  <select id="findByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from user
+  	left outer join user_role on user.id=user_role.user_id
+  	left outer join role on role.role_id=user_role.role_id
+  	where username=#{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.User" useGeneratedKeys="true" keyProperty="id">
+    insert into user (id, username, `password`
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertUserRole" parameterType="com.cuterwrite.dbfinal.entity.User">
+  	insert into user_role(user_id,role_id)
+	select user.id,role.role_id from user,role
+	where user.id=#{id,jdbcType=INTEGER} and
+	role.role_id in
+	<foreach collection="roles" item="role" open="(" separator="," close=")">
+		#{role.roleId}
+	</foreach>
+  </insert>
+  <update id="update" parameterType="com.cuterwrite.dbfinal.entity.User">
+    update user
+    set `password` = #{password,jdbcType=VARCHAR}
+    where username = #{username}
+  </update>
+  <update id="updateUserRole" parameterType="com.cuterwrite.dbfinal.entity.User">
+  	update user_role
+  	set role_id=
+  	<foreach collection="roles" item="role" open="case user_id" close="end" separator=" ">
+  		when #{id} then #{role.roleId}
+  	</foreach>
+  	where user_id=#{id}
+  </update>
+</mapper>
