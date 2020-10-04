@@ -10,8 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cuterwrite.dbfinal.common.ResultCode;
 import com.cuterwrite.dbfinal.dao.UserDAO;
 import com.cuterwrite.dbfinal.entity.User;
+import com.cuterwrite.dbfinal.exception.CMSException;
 import com.cuterwrite.dbfinal.service.AuthService;
 import com.cuterwrite.dbfinal.util.JwtTokenUtil;
 
@@ -38,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
 	public User register(User userToAdd) {
 		final String username=userToAdd.getUsername();
 		if(userDao.findByUsername(username)!=null) {
-			return null;
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"用户名已经被注册");
 		}
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		final String rawPassword=userToAdd.getPassword();

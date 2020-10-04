@@ -1,5 +1,6 @@
 package com.cuterwrite.dbfinal.exception;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,7 +11,7 @@ import com.cuterwrite.dbfinal.common.ResultCode;
 
 @ControllerAdvice
 /**
- * 
+ * 全局异常捕获
  * @author Pang S.Z.
  * @create 2020-09-26 16:48:00
  */
@@ -36,6 +37,13 @@ public class GlobalExceptionHandler {
 	public ResponseResult error(IndexOutOfBoundsException e) {
 		e.printStackTrace();
 		return ResponseResult.setResult(ResultCode.HTTP_CLIENT_ERROR);
+	}
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	@ResponseBody
+	public ResponseResult error(BadCredentialsException e) {
+		e.printStackTrace();
+		return ResponseResult.error().message("用户名或密码错误");
 	}
 	
 	//自定义异常处理

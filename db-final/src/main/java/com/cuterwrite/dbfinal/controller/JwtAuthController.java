@@ -1,10 +1,14 @@
 package com.cuterwrite.dbfinal.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cuterwrite.dbfinal.common.ResponseResult;
 import com.cuterwrite.dbfinal.entity.User;
 import com.cuterwrite.dbfinal.service.AuthService;
 
@@ -20,13 +24,19 @@ public class JwtAuthController {
 	
 	//登录
 	@PostMapping(value = "/auth/login")
-	public String login(String username,String password) {
-		return authService.login(username, password);
+	public ResponseResult login(String username,String password) {
+		String token=authService.login(username, password);
+		Map<String, Object>tokenMap=new HashMap<>();
+		tokenMap.put("token", token);
+		return ResponseResult.ok().data(tokenMap).message("登录成功");
 	}
 	
 	//注册
 	@PostMapping(value = "/auth/register")
-	public User register(@RequestBody User addedUser) {
-		return authService.register(addedUser);
+	public ResponseResult register(@RequestBody User addedUser) {
+		User user = authService.register(addedUser);
+		Map<String, Object>map=new HashMap<>();
+		map.put("user", user);
+		return ResponseResult.ok().data(map);
 	}
 }
