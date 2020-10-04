@@ -12,10 +12,10 @@ export default{
 		SET_NAME:(state,name)=>{
 			state.name=name
 		},
-		SET_AVATAR(state,avatar)=>{
+		SET_AVATAR:(state,avatar)=>{
 			state.avatar=avatar
 		},
-		SET_ROLES(state,roles)=>{
+		SET_ROLES:(state,roles)=>{
 			state.roles=roles
 		}
 	},

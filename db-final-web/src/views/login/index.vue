@@ -16,9 +16,9 @@ export default{
 	},
 	methods:{
 		onSubmit(){
-			axios.post('localhost:7777/auth/login?username='+username+'&password='+password)
+			axios.post('http://localhost:7777/auth/login?username='+this.username+'&password='+this.password)
 			.then(res=>{
-				console.log(res);
+				alert(res.data.data.token)
 			})
 		}
 	}
