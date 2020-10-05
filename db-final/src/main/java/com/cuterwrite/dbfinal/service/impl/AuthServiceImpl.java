@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResultCode;
 import com.cuterwrite.dbfinal.dao.UserDAO;
+import com.cuterwrite.dbfinal.dto.ChangePwdParam;
 import com.cuterwrite.dbfinal.entity.User;
 import com.cuterwrite.dbfinal.exception.CMSException;
 import com.cuterwrite.dbfinal.service.AuthService;
@@ -67,6 +68,12 @@ public class AuthServiceImpl implements AuthService {
 	public String refreshToken(String token) {
 		token=token.substring(Const.TOKEN_PREFIX.length());
 		return jwtTokenUtil.refreshToken(token);
+	}
+
+	@Override
+	public User changePwd(ChangePwdParam changePwdParam) {
+		//@todo
+		return null;
 	}
 
 }

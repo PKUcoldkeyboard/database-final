@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResponseResult;
+import com.cuterwrite.dbfinal.dto.ChangePwdParam;
 import com.cuterwrite.dbfinal.dto.LoginParam;
 import com.cuterwrite.dbfinal.entity.User;
 import com.cuterwrite.dbfinal.service.AuthService;
@@ -69,5 +69,11 @@ public class JwtAuthController {
 		tokenMap.put("tokenHead", Const.TOKEN_PREFIX);
 		tokenMap.put("token", refreshToken);
 		return ResponseResult.ok().data(tokenMap);
+	}
+	
+	//修改密码
+	@PostMapping(value = "/changePwd")
+	public ResponseResult changePwd(@Validated @RequestBody ChangePwdParam param) {
+		return ResponseResult.ok();
 	}
 }

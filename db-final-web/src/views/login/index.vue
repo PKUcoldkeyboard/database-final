@@ -4,7 +4,8 @@
 			<a-form-model :model="loginForm"
 						  :rules="loginRules"
 						  ref="loginForm"
-						  label-position="left">
+						  label-position="left"
+						  autoComplete="on">
 				<div style="text-align: center;">
 					<img src='@/assets/logo.png' style="width: 56px;height: 56px;">
 				</div>
@@ -12,21 +13,24 @@
 				<a-form-model-item has-feedback prop="username">
 					<a-input type="text"
 							 placeholder="请输入帐号" 
-							 v-model="loginForm.username">
+							 v-model="loginForm.username"
+							 autoComplete="on">
 						<a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
 					</a-input>
 				</a-form-model-item>
 				<a-form-model-item has-feedback prop="password">
 					<a-input :type="pwdType"
 							 placeholder="请输入密码"
-							 v-model="loginForm.password">
+							 v-model="loginForm.password"
+							 @keyup.enter.native="handleLogin"
+							 autoComplete="on">
 						<a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
 						<a-icon slot="suffix" type="eye" style="color:rgba(0,0,0,.25)" @click="showPwd"/>
 					</a-input>
 				</a-form-model-item>
 				<a-form-model-item>
 					<a-checkbox :checked="rememberMe" @change="setRemember">记住密码</a-checkbox>
-					<a class="login-form-forget" href="">找回密码</a>
+					<router-link class="login-form-forget" to="/">找回密码</router-link>
 				</a-form-model-item>
 				<a-form-model-item style="margin-bottom: 60px;text-align: center;">
 					<a-button type="primary" :loading="loading" @click.native.prevent="handleLogin"
@@ -68,8 +72,8 @@ export default{
 				password:''
 			},
 			loginRules:{
-				username:[{required:true,trigger:'blur',validator:validateUsername}],
-				password:[{required:true,trigger:'blur',validator:validatePassword}]
+				username:[{required:true,trigger:'change',validator:validateUsername}],
+				password:[{required:true,trigger:'change',validator:validatePassword}]
 			},
 			loading:false,
 			pwdType:'password',
@@ -110,8 +114,8 @@ export default{
 					this.$store.dispatch('Login',this.loginForm).then(()=>{
 						this.loading=false;
 						if(this.rememberMe){
-							setCookie("username",this.loginForm.username);
-							setCookie("password",this.loginForm.password);
+							setCookie("username",this.loginForm.username,15);
+							setCookie("password",this.loginForm.password,15);
 						}
 						this.$router.push({path:'/'})
 					}).catch(()=>{
@@ -122,6 +126,9 @@ export default{
 					return false;
 				}
 			})
+		},
+		handleRegister(){
+			this.$router.push({path:'/register'})
 		}
 	}
 }

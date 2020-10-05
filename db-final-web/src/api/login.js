@@ -17,3 +17,34 @@ export function logout(){
 		method:'post'
 	})
 }
+
+export function getInfo(){
+	return request({
+		url:'/auth/info',
+		method:'get',
+	})
+}
+
+export function register(username,password){
+	return request({
+		url:'/auth/register',
+		method:'post',
+		data:{
+			username:username,
+			password:password,
+			roles:[{roleId:1,roleName:'normal'}],
+		}
+	})
+}
+
+export function changePwd(username,oldPass,newPass){
+	return request({
+		url:'/auth/changePwd',
+		method:'post',
+		data:{
+			username:username,
+			oldPassword:oldPass,
+			newPassword:newPass,
+		}
+	})
+}

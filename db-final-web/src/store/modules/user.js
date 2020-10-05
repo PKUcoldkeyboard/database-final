@@ -1,4 +1,4 @@
-import {login,logout} from '@/api/login'
+import {login,logout,getInfo} from '@/api/login'
 import {getToken,setToken,removeToken} from '@/utils/auth'
 
 export default{
@@ -58,6 +58,24 @@ export default{
 				commit('SET_TOKEN','')
 				removeToken()
 				resolve()
+			})
+		},
+
+		GetInfo({commit},state){
+			return new Promise(resolve=>{
+				getInfo().then(response=>{
+					const data=response.data
+					if(data.roles&&data.roles.length>0){
+						commit('SET_ROLES',data.roles)
+					}else{
+						reject('getInfo:roles must be a non-null array!')
+					}
+					commit('SET_NAME',data.username)
+					commit('SET_AVATAR',data.icon)
+					resolve()
+				}).catch(error=>{
+					reject(error)
+				})
 			})
 		}
 	}

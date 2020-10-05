@@ -1,5 +1,6 @@
 package com.cuterwrite.dbfinal.service;
 
+import com.cuterwrite.dbfinal.dto.ChangePwdParam;
 import com.cuterwrite.dbfinal.entity.User;
 
 /**
@@ -31,4 +32,13 @@ public interface AuthService {
 	 * @return 新的token
 	 */
 	String refreshToken(String token);
+	/**
+	 * 
+	 * @Description 修改密码
+	 * @param username
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return 修改密码后的user
+	 */
+	User changePwd(ChangePwdParam changePwdParam);
 }
