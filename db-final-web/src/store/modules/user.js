@@ -1,6 +1,9 @@
+import {login,logout} from '@/api/login'
+import {getToken,setToken,removeToken} from '@/utils/auth'
+
 export default{
 	state:{
-	  	token:'',
+	  	token:getToken(),
 	  	name:'',
 	  	avatar:'',
 	  	roles:[]
@@ -18,9 +21,44 @@ export default{
 		SET_ROLES:(state,roles)=>{
 			state.roles=roles
 		}
-	},
+	},//promise,resolve,reject是js异步内容，resolve(操作成功),reject(操作失败)
 	actions:{
 		//登录
-		
+		Login({commit},userInfo){
+			const username=userInfo.username.trim()
+			return new Promise((resolve,reject)=>{
+				login(username,userInfo.password).then(response=>{
+					const data=response.data
+					const tokenStr=data.tokenHead+data.token
+					setToken(tokenStr)
+					commit('SET_TOKEN',tokenStr)
+					resolve()
+				}).catch(error=>{
+					reject(error)
+				})
+			})
+		},
+		//登出
+		Logout({commit},state){
+			return new Promise((resolve,reject)=>{
+				logout(state.token).then(()=>{
+					commit('SET_TOKEN','')
+					commit('SET_ROLES',[])
+					removeToken()
+					resolve()
+				}).catch(error=>{
+					reject(error)
+				})
+			})
+		},
+
+		//前端登出
+		FedLogout({commit}){
+			return new Promise(resolve=>{
+				commit('SET_TOKEN','')
+				removeToken()
+				resolve()
+			})
+		}
 	}
 }

@@ -24,4 +24,11 @@ public interface AuthService {
 	 * @return Json Web Token
 	 */
 	String login(String username,String password);
+	/**
+	 * 
+	 * @Description 刷新token
+	 * @param token
+	 * @return 新的token
+	 */
+	String refreshToken(String token);
 }

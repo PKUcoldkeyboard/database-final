@@ -1,7 +1,7 @@
 package com.cuterwrite.dbfinal.common;
 
 /**
- * 
+ * 常数类
  * @author Pang S.Z.
  * @create 2020-09-27 16:35:44
  */
