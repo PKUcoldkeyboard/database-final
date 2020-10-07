@@ -123,7 +123,13 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		
+		<!-- minio -->
+		<dependency>
+		    <groupId>io.minio</groupId>
+		    <artifactId>minio</artifactId>
+		    <version>3.0.10</version>
+		</dependency>
+			
 
 	</dependencies>
 

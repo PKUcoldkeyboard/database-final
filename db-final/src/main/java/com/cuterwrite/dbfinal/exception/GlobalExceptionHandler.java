@@ -9,6 +9,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.cuterwrite.dbfinal.common.ResponseResult;
 import com.cuterwrite.dbfinal.common.ResultCode;
 
+import io.minio.errors.MinioException;
+
 @ControllerAdvice
 /**
  * 全局异常捕获
@@ -44,6 +46,13 @@ public class GlobalExceptionHandler {
 	public ResponseResult error(BadCredentialsException e) {
 		e.printStackTrace();
 		return ResponseResult.error().message("用户名或密码错误");
+	}
+	
+	@ExceptionHandler(MinioException.class)
+	@ResponseBody
+	public ResponseResult error(MinioException e) {
+		e.printStackTrace();
+		return ResponseResult.error().message("minio客户端出错");
 	}
 	
 	//自定义异常处理
