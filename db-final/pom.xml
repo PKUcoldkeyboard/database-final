@@ -118,6 +118,12 @@
 		    <groupId>javax.validation</groupId>
 		    <artifactId>validation-api</artifactId>
 		</dependency>
+		<!-- aop -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		
 
 	</dependencies>
 
