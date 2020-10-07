@@ -10,6 +10,8 @@
   "dependencies": {
     "ant-design-vue": "^1.2.4",
     "core-js": "^3.6.5",
+    "js-cookie": "^2.2.1",
+    "qs": "^6.9.4",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
@@ -28,6 +30,7 @@
     "less-loader": "^4.1.0",
     "vue-cli-plugin-ant-design": "^1.0.1",
     "vue-cli-plugin-axios": "0.0.4",
+    "vue-cli-plugin-cookie": "^0.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
