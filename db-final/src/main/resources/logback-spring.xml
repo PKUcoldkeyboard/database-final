@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <springProperty scope="context" name="LOG_STASH_HOST" source="logstash.host"/>
+    <!--应用名称-->
+    <property name="APP_NAME" value="db-final"/>
+    <!--日志文件保存路径-->
+    <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
+    <!-- 控制台的日志输出样式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <contextName>${APP_NAME}</contextName>
+     <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <!-- 日志输出编码 -->
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <!--每天记录日志到文件appender-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!--DEBUG日志输出到LogStash-->
+	<appender name="LOG_STASH_DEBUG" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	    <destination>${LOG_STASH_HOST}:24221</destination>
+	    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>
+	
+	<!--ERROR日志输出到LogStash-->
+	<appender name="LOG_STASH_ERROR" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	    <destination>${LOG_STASH_HOST}:24222</destination>
+	    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>
+	
+	<!--业务日志输出到LogStash-->
+	<appender name="LOG_STASH_BUSINESS" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	    <destination>${LOG_STASH_HOST}:24223</destination>
+	    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>
+	
+	<!--接口访问记录日志输出到LogStash-->
+	<appender name="LOG_STASH_RECORD" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+	    <destination>${LOG_STASH_HOST}:24224</destination>
+	    <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+	</appender>
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="LOG_STASH_BUSINESS"/>
+        <appender-ref ref="LOG_STASH_RECORD"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <root level="DEBUG">
+    	<appender-ref ref="LOG_STASH_DEBUG"/>
+    </root>
+    <root level="ERROR">
+    	<appender-ref ref="LOG_STASH_ERROR"/>
+    </root>
+</configuration>

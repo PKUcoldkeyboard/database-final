@@ -23,11 +23,11 @@ public class CancelOrderSender {
 	private AmqpTemplate amqpTemplate;
 	
 	public void sendMessage(Long orderId,final Long delayTime) {
-		amqpTemplate.convertAndSend(QueueEunm.QUEUE_TTL_ORDER_CANCEL.getExchange(),QueueEunm.QUEUE_TTL_ORDER_CANCEL.getRouteKey(),orderId,new MessagePostProcessor() {
+		amqpTemplate.convertAndSend(QueueEunm.QUEUE_ORDER_CANCEL.getExchange(),QueueEunm.QUEUE_ORDER_CANCEL.getRouteKey(),orderId,new MessagePostProcessor() {
 			
 			@Override
 			public Message postProcessMessage(Message message) throws AmqpException {
-				message.getMessageProperties().setExpiration(String.valueOf(delayTime));
+				message.getMessageProperties().setHeader("x-delay", delayTime);
 				return message;
 			}
 		});

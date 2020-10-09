@@ -12,11 +12,7 @@ public enum QueueEunm {
 	/*
 	 * 消息通知队列
 	 */
-	QUEUE_ORDER_CANCEL("dbfinal.order.direct","dbfinal.order.cancel","dbfinal.order.cancel"),
-	/*
-	 * 消息通知TTL队列
-	 */
-	QUEUE_TTL_ORDER_CANCEL("dbfinal.order.direct.ttl","dbfinal.order.cancel.ttl","dbfinal.order.cancel.ttl");
+	QUEUE_ORDER_CANCEL("dbfinal.order.direct","dbfinal.order.cancel","dbfinal.order.cancel");
 	
 	/*
 	 * 交换名称

@@ -129,6 +129,12 @@
 		    <artifactId>minio</artifactId>
 		    <version>3.0.10</version>
 		</dependency>
+		<!--集成logstash-->
+		<dependency>
+		    <groupId>net.logstash.logback</groupId>
+		    <artifactId>logstash-logback-encoder</artifactId>
+		    <version>5.3</version>
+		</dependency>
 			
 
 	</dependencies>

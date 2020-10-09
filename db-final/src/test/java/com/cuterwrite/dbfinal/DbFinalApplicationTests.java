@@ -4,23 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cuterwrite.dbfinal.entity.User;
-import com.cuterwrite.dbfinal.service.RedisService;
+import com.cuterwrite.dbfinal.component.CancelOrderSender;
 
-import cn.hutool.json.JSONUtil;
+
 
 @SpringBootTest
 class DbFinalApplicationTests {
+	
 	@Autowired
-	RedisService redisService;
+	CancelOrderSender cancelOrderSender;
 	
 	@Test
 	void contextLoads() {
-		User user=new User();
-		user.setUsername("cuterwrite");
-		user.setPassword("heart39100");
-		redisService.set("cuterwrite", JSONUtil.toJsonStr(user));
-		System.out.println(redisService.get("cuterwrite"));
+		long delayTime=30*1000;
+		cancelOrderSender.sendMessage(1L, delayTime);
 	}
 
 }
