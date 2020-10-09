@@ -59,12 +59,8 @@
         <appender-ref ref="FILE"/>
         <appender-ref ref="LOG_STASH_BUSINESS"/>
         <appender-ref ref="LOG_STASH_RECORD"/>
-        <appender-ref ref="CONSOLE"/>
-    </root>
-    <root level="DEBUG">
-    	<appender-ref ref="LOG_STASH_DEBUG"/>
-    </root>
-    <root level="ERROR">
-    	<appender-ref ref="LOG_STASH_ERROR"/>
+        <appender-ref ref="LOG_STASH_DEBUG"/>
+        <appender-ref ref="LOG_STASH_ERROR"/>
+    	<appender-ref ref="CONSOLE"/>
     </root>
 </configuration>
