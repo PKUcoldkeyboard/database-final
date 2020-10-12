@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cuterwrite.dbfinal.component.CancelOrderSender;
+import com.cuterwrite.dbfinal.dao.RoleDAO;
+import com.cuterwrite.dbfinal.entity.Role;
 
 
 
@@ -12,12 +14,14 @@ import com.cuterwrite.dbfinal.component.CancelOrderSender;
 class DbFinalApplicationTests {
 	
 	@Autowired
+	RoleDAO roleDao;
+	@Autowired
 	CancelOrderSender cancelOrderSender;
 	
 	@Test
 	void contextLoads() {
-		long delayTime=30*1000;
-		cancelOrderSender.sendMessage(1L, delayTime);
+		Role role=roleDao.selectByPrimaryKey(1);
+		System.out.println(role.toString());
 	}
 
 }
