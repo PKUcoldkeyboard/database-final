@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**  
- * 日志信息封装类
+ * 请求日志封装类
  * @author Pang S.Z.
  * @create 2020-10-07 16:51:22 
  */
