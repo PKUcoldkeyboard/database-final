@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +37,7 @@ public class JwtAuthController {
 	
 	//登录
 	@PostMapping(value = "/login")
-	public ResponseResult login(@Validated @RequestBody LoginParam loginParam) {
+	public ResponseResult login(@RequestBody @Valid LoginParam loginParam) {
 		String token=authService.login(loginParam.getUsername(),loginParam.getPassword());
 		Map<String, Object>tokenMap=new HashMap<>();
 		tokenMap.put("tokenHead", Const.TOKEN_PREFIX);

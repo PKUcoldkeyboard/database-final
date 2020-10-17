@@ -1,6 +1,10 @@
 package com.cuterwrite.dbfinal.exception;
 
+import java.util.stream.Collectors;
+
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +32,13 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage(),e);
 		return ResponseResult.error();
 	}
-	
+	@ExceptionHandler(BindException.class)
+	@ResponseBody
+	public ResponseResult error(BindException e) {
+		log.error(e.getMessage(),e);
+		return ResponseResult.error().message(e.getAllErrors().stream().map(ObjectError::getDefaultMessage)
+				.collect(Collectors.joining("，")));
+	}
 	@ExceptionHandler(NullPointerException.class)
 	@ResponseBody
 	public ResponseResult error(NullPointerException e) {

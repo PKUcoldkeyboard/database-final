@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * @author 
  * 
+ * @author Pang S.Z.
+ * @create 2020-10-16 00:03:07
  */
 public class User implements Serializable, UserDetails{
     /**

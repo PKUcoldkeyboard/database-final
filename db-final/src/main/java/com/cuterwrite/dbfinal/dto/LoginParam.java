@@ -1,6 +1,7 @@
 package com.cuterwrite.dbfinal.dto;
 
-import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,8 +15,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class LoginParam {	
-	@NotEmpty
+	@NotBlank(message = "用户名不能为空")
 	private String username;
-	@NotEmpty
+	@NotBlank(message = "密码不能为空")
 	private String password;
 }
