@@ -3,23 +3,36 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+/*Layout */
+import Layout from '@/views/layout/Layout'
+
 const routes = [
   {
     path:'/login',
-    component:()=>import('@/views/login/index')
+    name:'login',
+    component: () => import('@/views/login/index')
   },
   {
-  	path:'/',
-  	component:()=>import('@/views/home/index')
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/register/index')
   },
   {
-  	path:'/register',
-  	component:()=>import('@/views/register/index')
+    path: '',
+    component: Layout,
+    redirect: '/home',
+    children: [{
+            path: 'home',
+            name: 'home',
+            component: () => import('@/views/home/index'),
+            meta: { title: '首页', icon: 'home' }
+        }
+    ]
   }
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router

@@ -1,12 +1,14 @@
 package com.cuterwrite.dbfinal;
 
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cuterwrite.dbfinal.component.CancelOrderSender;
-import com.cuterwrite.dbfinal.dao.RoleDAO;
-import com.cuterwrite.dbfinal.entity.Role;
+import com.cuterwrite.dbfinal.service.Neo4jService;
+
+
 
 
 
@@ -14,14 +16,11 @@ import com.cuterwrite.dbfinal.entity.Role;
 class DbFinalApplicationTests {
 	
 	@Autowired
-	RoleDAO roleDao;
-	@Autowired
-	CancelOrderSender cancelOrderSender;
+	Neo4jService service;
 	
 	@Test
 	void contextLoads() {
-		Role role=roleDao.selectByPrimaryKey(1);
-		System.out.println(role.toString());
+		service.clear();
 	}
 
 }

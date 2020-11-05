@@ -88,7 +88,7 @@ public class WebLogAspect {
 		webLog.setStartTime(startTime);
 		webLog.setUri(request.getRequestURI());
 		webLog.setUrl(request.getRequestURL().toString());
-		LOGGER.info("webLog:{}",JSONUtil.parse(webLog));
+		LOGGER.info("webLog:{}",JSONUtil.parseObj(webLog));
 		return result;
 	}
 

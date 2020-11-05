@@ -1,4 +1,4 @@
-package com.cuterwrite.dbfinal.elasticsearch.repository;
+package com.cuterwrite.dbfinal.elasticsearch.dao;
 
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
