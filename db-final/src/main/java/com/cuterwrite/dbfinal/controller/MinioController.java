@@ -61,7 +61,10 @@ public class MinioController {
 		return ResponseResult.ok().data(BeanUtil.beanToMap(minioUploadDto));
 	}
 	
-	//文件删除
+	/*
+	 * 文件删除
+	 * objectName格式e.g.(20201007/4vm95m.jpg)
+	 */
 	@PostMapping("/delete")
 	public ResponseResult delete(@RequestParam("objectName")String objectName) throws Exception{
 		MinioClient minioClient=new MinioClient(ENDPOINT,ACCESS_KEY,SECRET_KEY);

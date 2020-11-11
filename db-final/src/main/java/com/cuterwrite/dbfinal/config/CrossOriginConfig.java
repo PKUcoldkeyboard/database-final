@@ -1,5 +1,6 @@
 package com.cuterwrite.dbfinal.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class CrossOriginConfig {
+	@Value("${vue.uri}")
+	private String allowedOrigins;
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -20,7 +23,7 @@ public class CrossOriginConfig {
 			public void addCorsMappings(CorsRegistry registry) {
 				//添加映射路径
 				registry.addMapping("/**")
-				.allowedOrigins("http://localhost:8080") //请求地址
+				.allowedOrigins(allowedOrigins) //请求地址
 				.allowCredentials(true) //发送Cookie
 				.allowedMethods("GET","POST","PUT","DELETE") //请求方式
 				.allowedHeaders("*");
