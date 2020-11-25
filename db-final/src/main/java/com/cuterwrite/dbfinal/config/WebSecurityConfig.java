@@ -58,13 +58,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests()
-			.antMatchers("/test").hasAnyRole("USER","ADMIN")
-			.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 			.antMatchers(HttpMethod.POST,"/auth/**").permitAll()
+			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.antMatchers(HttpMethod.POST).authenticated()
 			.antMatchers(HttpMethod.PUT).authenticated()
 			.antMatchers(HttpMethod.DELETE).authenticated()
-			.antMatchers(HttpMethod.GET).authenticated();
+			.antMatchers(HttpMethod.GET).authenticated()
+			.antMatchers("/test").hasAnyRole("USER","ADMIN");
 		
 		//添加JWT filter
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
