@@ -24,8 +24,9 @@ public class CrossOriginConfig {
 				//添加映射路径
 				registry.addMapping("/**")
 				.allowedOrigins(allowedOrigins) //请求地址
-				.allowedMethods("*") //请求方式
-				.allowCredentials(true) ;//发送Cookie; 
+				.allowCredentials(true)//发送Cookie; 
+				.allowedHeaders("*")
+				.allowedMethods("*");//请求方式
 			}
 		};
 	}
