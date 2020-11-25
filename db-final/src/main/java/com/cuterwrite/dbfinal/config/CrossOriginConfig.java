@@ -27,7 +27,7 @@ public class CrossOriginConfig {
 		config.addAllowedHeader("*");
 		//允许所有请求
 		config.addAllowedMethod("*");
-		//设置缓存时间,减少Options请求次数
+		//设置缓存时间-6分钟,减少Options请求次数
 		config.setMaxAge(3600L);
 		UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);
