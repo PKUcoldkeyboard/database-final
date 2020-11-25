@@ -17,14 +17,14 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 public class RestClientConfig extends AbstractElasticsearchConfiguration{
 	
 	@Value("${spring.data.elasticsearch.cluster-nodes}")
-	private String esURi;
+	private String esURI;
 	
 	@Override
 	@Bean
 	public RestHighLevelClient elasticsearchClient() {
 		
 		final ClientConfiguration clientConfiguration=ClientConfiguration.builder()
-				.connectedTo(esURi)
+				.connectedTo(esURI)
 				.build();
 		
 		return RestClients.create(clientConfiguration).rest();

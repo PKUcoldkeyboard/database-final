@@ -25,7 +25,7 @@ public class CrossOriginConfig {
 				registry.addMapping("/**")
 				.allowedOrigins(allowedOrigins) //请求地址
 				.allowCredentials(true) //发送Cookie
-				.allowedMethods("GET","POST","PUT","DELETE") //请求方式
+				.allowedMethods("*") //请求方式
 				.allowedHeaders("*");
 			}
 		};
