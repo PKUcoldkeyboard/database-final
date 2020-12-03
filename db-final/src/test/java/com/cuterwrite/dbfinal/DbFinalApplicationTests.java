@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cuterwrite.dbfinal.service.Neo4jService;
 
+import cn.hutool.http.HttpUtil;
+
 
 
 
@@ -15,12 +17,9 @@ import com.cuterwrite.dbfinal.service.Neo4jService;
 @SpringBootTest
 class DbFinalApplicationTests {
 	
-	@Autowired
-	Neo4jService service;
-	
 	@Test
 	void contextLoads() {
-		service.clear();
+		HttpUtil.get("https://sc.ftqq.com/SCU131539T7e6c5576ee0d756dc308a320937a50045fc5ace7252a3.send?text=谢源，阿囊死给&desp=");
 	}
 
 }
