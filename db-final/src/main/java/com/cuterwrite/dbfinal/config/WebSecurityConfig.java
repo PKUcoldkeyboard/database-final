@@ -64,8 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT).authenticated()
 			.antMatchers(HttpMethod.DELETE).authenticated()
 			.antMatchers(HttpMethod.GET).authenticated()
-			.antMatchers("/test").hasAnyRole("USER","ADMIN");
-		
+			.antMatchers("/test").hasAnyRole("USER","ADMIN");	
 		//添加JWT filter
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		//禁用缓存
