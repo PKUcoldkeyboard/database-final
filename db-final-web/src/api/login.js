@@ -32,7 +32,7 @@ export function register(username,password){
 		data:{
 			username:username,
 			password:password,
-			roles:[{roleId:1,roleName:'normal'}],
+			roles:[{roleId:1,roleName:'ROLE_USER'}],
 		}
 	})
 }
