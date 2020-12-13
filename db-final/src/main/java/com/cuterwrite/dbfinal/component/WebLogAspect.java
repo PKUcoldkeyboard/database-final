@@ -51,6 +51,11 @@ public class WebLogAspect {
 		
 	}
 	
+	@Pointcut("execution(public * com.cuterwrite.dbfinal.exception.GlobalExceptionHandler.*(..))")
+	public void exceptionLog() {
+		
+	}
+	
 	@Before("webLog()")
 	public void doBefore(JoinPoint joinPoint)throws Throwable{
 	}
@@ -83,10 +88,10 @@ public class WebLogAspect {
 		webLog.setStartTime(startTime);
 		webLog.setUri(request.getRequestURI());
 		webLog.setUrl(request.getRequestURL().toString());
-		LOGGER.info("{}",JSONUtil.parse(webLog));
+		LOGGER.info("webLog:{}",JSONUtil.parseObj(webLog));
 		return result;
 	}
-	
+
 	/*
 	 * 根据方法和传入的参数获得请求参数
 	 */

@@ -1,9 +1,12 @@
 package com.cuterwrite.dbfinal.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
 
 /**  
  * 跨域请求配置
@@ -12,19 +15,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class CrossOriginConfig {
+
 	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			//重写跨域请求处理接口
-			public void addCorsMappings(CorsRegistry registry) {
-				//添加映射路径
-				registry.addMapping("/**")
-				.allowedOrigins("http://localhost:8080") //请求地址
-				.allowCredentials(true) //发送Cookie
-				.allowedMethods("GET","POST","PUT","DELETE") //请求方式
-				.allowedHeaders("*");
-			}
-		};
+	public CorsFilter corsFilter(){
+		CorsConfiguration config=new CorsConfiguration();
+		//允许所有域名进行跨域调用
+		config.addAllowedOrigin("*");
+		//允许跨域发送cookie
+		config.setAllowCredentials(true);
+		//允许所有头部信息
+		config.addAllowedHeader("*");
+		//允许所有请求
+		config.addAllowedMethod("*");
+		//设置缓存时间-6分钟,减少Options请求次数
+		config.setMaxAge(3600L);
+		UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 }

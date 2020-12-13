@@ -1,5 +1,7 @@
 package com.cuterwrite.dbfinal.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cuterwrite.dbfinal.dto.ChangePwdParam;
 import com.cuterwrite.dbfinal.entity.User;
 
@@ -16,6 +18,7 @@ public interface AuthService {
 	 * @param userToAdd
 	 * @return User
 	 */
+	@Transactional
 	User register(User userToAdd);
 	/**
 	 * 

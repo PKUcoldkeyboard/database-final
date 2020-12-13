@@ -86,9 +86,9 @@ export default{
 				newPassword:'',
 			},
 			registerRules:{
-				username:[{required:true,trigger:'change',validator:validateUsername}],
-				oldPassword:[{required:true,trigger:'change',validator:validatePassword}],
-				newPassword:[{required:true,trigger:'change',validator:samePassword}]
+				username:[{required:true,trigger:'blur',validator:validateUsername}],
+				oldPassword:[{required:true,trigger:'blur',validator:validatePassword}],
+				newPassword:[{required:true,trigger:'blur',validator:samePassword}]
 			},
 			loading:false,
 			oldPwdType:'password',

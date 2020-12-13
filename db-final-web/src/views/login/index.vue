@@ -72,8 +72,8 @@ export default{
 				password:''
 			},
 			loginRules:{
-				username:[{required:true,trigger:'change',validator:validateUsername}],
-				password:[{required:true,trigger:'change',validator:validatePassword}]
+				username:[{required:true,trigger:'blur',validator:validateUsername}],
+				password:[{required:true,trigger:'blur',validator:validatePassword}]
 			},
 			loading:false,
 			pwdType:'password',
@@ -117,7 +117,7 @@ export default{
 							setCookie("username",this.loginForm.username,15);
 							setCookie("password",this.loginForm.password,15);
 						}
-						this.$router.push({path:'/'})
+						this.$router.push({path:'/index'})
 					}).catch(()=>{
 						this.loading=false;
 					})
@@ -141,6 +141,7 @@ export default{
 		right: 0;
 		width:360px;
 		margin: 140px auto;
+		box-shadow: 3px 3px 6px rgba(0,0,0,.08)
 	}
 	.login-title{
 		text-align: center;
