@@ -26,21 +26,21 @@
                             </div>
                         </div>
                         <div class="tabWrap">
-                            <a-menu mode="horizontal" :default-selected-keys="['1']">
-                                <a-menu-item key="1">
-                                    <router-link to="/index">首页</router-link>
+                            <a-menu mode="horizontal" :default-selected-keys="$route.path">
+                                <a-menu-item key="/index/head">
+                                    <router-link to="/index/head">首页</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="2">
-                                    <router-link to="/index">预约租借</router-link>
+                                <a-menu-item key="/index/reserve">
+                                    <router-link to="/index/reserve">预约租借</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="3">
+                                <a-menu-item key="/index/suggest">
                                     <router-link to="/index/suggest">预约须知</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="4">
-                                    <router-link to="/index">场馆地图</router-link>
+                                <a-menu-item key="/index/map">
+                                    <router-link to="/index/map">场馆地图</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="5">
-                                    <router-link to="/index">联系我们</router-link>
+                                <a-menu-item key="/index/contact">
+                                    <router-link to="/index/contact">联系我们</router-link>
                                 </a-menu-item>
                             </a-menu>
                         </div>
@@ -67,6 +67,7 @@ export default {
     data() {
         return {
             locale: zhCN,
+            selectedIndex:''
         }
     },
     methods: {

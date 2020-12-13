@@ -34,6 +34,26 @@ const routes = [{
             path: 'suggest',
             name: 'suggest',
             component: () => import('@/views/suggest/index')
+        },
+        {
+            path:'reserve',
+            name:'reserve',
+            component:()=>import('@/views/reserve')
+        },
+        {
+            path:'map',
+            name:'map',
+            component:()=>import('@/views/map')
+        },
+        {
+            path:'contact',
+            name:'contact',
+            component:()=>import('@/views/contact')
+        },
+        {
+            path:'head',
+            name:'head',
+            component:()=>import('@/views/head')
         }]
     }
 ]

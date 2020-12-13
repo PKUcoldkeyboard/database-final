@@ -2,7 +2,7 @@
     <div>
         <a-breadcrumb separator="">
             <a-breadcrumb-item>
-                <router-link to="/index">当前位置：首页</router-link>
+                <router-link to="/index/head">当前位置：首页</router-link>
             </a-breadcrumb-item>
             <a-breadcrumb-separator>></a-breadcrumb-separator>
             <a-breadcrumb-item>
