@@ -18,7 +18,7 @@ public interface AuthService {
 	 * @param userToAdd
 	 * @return User
 	 */
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	User register(User userToAdd);
 	/**
 	 * 

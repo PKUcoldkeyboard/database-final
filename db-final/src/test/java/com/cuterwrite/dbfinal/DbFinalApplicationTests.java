@@ -15,7 +15,7 @@ import cn.hutool.http.HttpUtil;
 
 
 @SpringBootTest
-class DbFinalApplicationTests {
+class DbFinalApplicationTest {
 	
 	@Test
 	void contextLoads() {
