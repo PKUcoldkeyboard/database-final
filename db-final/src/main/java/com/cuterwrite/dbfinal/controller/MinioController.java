@@ -29,46 +29,55 @@ import io.minio.policy.PolicyType;
 public class MinioController {
 	private static final Logger LOGGER=LoggerFactory.getLogger(MinioController.class);
 	@Value("${minio.endpoint}")
-	private String ENDPOINT;
+	private String endPoint;
 	@Value("${minio.bucketName}")
-	private String BUCKET_NAME;
+	private String bucketName;
 	@Value("${minio.accessKey}")
-	private String ACCESS_KEY;
+	private String accessKey;
 	@Value("${minio.secretKey}")
-	private String SECRET_KEY;
+	private String secretKey;
 	
-	//文件上传
+	/**
+	 * 文件上传
+	 * @Description 
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/upload")
 	public ResponseResult upload(@RequestParam("file")MultipartFile file) throws Exception {
-		MinioClient minioClient=new MinioClient(ENDPOINT,ACCESS_KEY,SECRET_KEY);
-		boolean isExist=minioClient.bucketExists(BUCKET_NAME);
+		MinioClient minioClient=new MinioClient(endPoint,accessKey,secretKey);
+		boolean isExist=minioClient.bucketExists(bucketName);
 		if(isExist) {
 			LOGGER.info("存储桶已经存在");
 		}else {
 			//创建存储桶并设置readonly
-			minioClient.makeBucket(BUCKET_NAME);
-			minioClient.setBucketPolicy(BUCKET_NAME, "*.*", PolicyType.READ_ONLY);
+			minioClient.makeBucket(bucketName);
+			minioClient.setBucketPolicy(bucketName, "*.*", PolicyType.READ_ONLY);
 		}
 		String filename=file.getOriginalFilename();
 		//设置存储对象名称
 		String objectName=DateUtil.format(new Date(), "yyyyMMdd")+"/"+filename;
 		//上传一个文件到存储桶中
-		minioClient.putObject(BUCKET_NAME, objectName, file.getInputStream(),file.getContentType());
+		minioClient.putObject(bucketName, objectName, file.getInputStream(),file.getContentType());
 		LOGGER.info("文件上传成功");
 		MinioUploadDto minioUploadDto=new MinioUploadDto();
 		minioUploadDto.setName(filename);
-		minioUploadDto.setUrl(ENDPOINT+"/"+BUCKET_NAME+"/"+objectName);
+		minioUploadDto.setUrl(endPoint+"/"+bucketName+"/"+objectName);
 		return ResponseResult.ok().data(BeanUtil.beanToMap(minioUploadDto));
 	}
 	
-	/*
-	 * 文件删除
-	 * objectName格式e.g.(20201007/4vm95m.jpg)
+	/**
+	 * 
+	 * @Description 文件删除，
+	 * @param objectName
+	 * @return
+	 * @throws Exception
 	 */
 	@PostMapping("/delete")
 	public ResponseResult delete(@RequestParam("objectName")String objectName) throws Exception{
-		MinioClient minioClient=new MinioClient(ENDPOINT,ACCESS_KEY,SECRET_KEY);
-		minioClient.removeObject(BUCKET_NAME, objectName);
+		MinioClient minioClient=new MinioClient(endPoint,accessKey,secretKey);
+		minioClient.removeObject(bucketName, objectName);
 		return ResponseResult.ok();
 	}
 }
