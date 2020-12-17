@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.UserStatisticsInfoDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.UserStatisticsInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="consume_amount" jdbcType="DECIMAL" property="consumeAmount" />
+    <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+    <result column="order_count" jdbcType="INTEGER" property="orderCount" />
+    <result column="coupon_count" jdbcType="INTEGER" property="couponCount" />
+    <result column="collect_book_count" jdbcType="INTEGER" property="collectBookCount" />
+    <result column="collect_comment_count" jdbcType="INTEGER" property="collectCommentCount" />
+    <result column="recent_order_time" jdbcType="TIMESTAMP" property="recentOrderTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, consume_amount, login_count, order_count, coupon_count, collect_book_count, 
+    collect_comment_count, recent_order_time, modify_time, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ums_user_statistics_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ums_user_statistics_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.UserStatisticsInfo">
+    insert into ums_user_statistics_info (id, user_id, consume_amount, 
+      login_count, order_count, coupon_count, 
+      collect_book_count, collect_comment_count, 
+      recent_order_time, modify_time, create_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{consumeAmount,jdbcType=DECIMAL}, 
+      #{loginCount,jdbcType=INTEGER}, #{orderCount,jdbcType=INTEGER}, #{couponCount,jdbcType=INTEGER}, 
+      #{collectBookCount,jdbcType=INTEGER}, #{collectCommentCount,jdbcType=INTEGER}, 
+      #{recentOrderTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.UserStatisticsInfo">
+    insert into ums_user_statistics_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="consumeAmount != null">
+        consume_amount,
+      </if>
+      <if test="loginCount != null">
+        login_count,
+      </if>
+      <if test="orderCount != null">
+        order_count,
+      </if>
+      <if test="couponCount != null">
+        coupon_count,
+      </if>
+      <if test="collectBookCount != null">
+        collect_book_count,
+      </if>
+      <if test="collectCommentCount != null">
+        collect_comment_count,
+      </if>
+      <if test="recentOrderTime != null">
+        recent_order_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="consumeAmount != null">
+        #{consumeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loginCount != null">
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderCount != null">
+        #{orderCount,jdbcType=INTEGER},
+      </if>
+      <if test="couponCount != null">
+        #{couponCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectBookCount != null">
+        #{collectBookCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCommentCount != null">
+        #{collectCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="recentOrderTime != null">
+        #{recentOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.UserStatisticsInfo">
+    update ums_user_statistics_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="consumeAmount != null">
+        consume_amount = #{consumeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="loginCount != null">
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="orderCount != null">
+        order_count = #{orderCount,jdbcType=INTEGER},
+      </if>
+      <if test="couponCount != null">
+        coupon_count = #{couponCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectBookCount != null">
+        collect_book_count = #{collectBookCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCommentCount != null">
+        collect_comment_count = #{collectCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="recentOrderTime != null">
+        recent_order_time = #{recentOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.UserStatisticsInfo">
+    update ums_user_statistics_info
+    set user_id = #{userId,jdbcType=BIGINT},
+      consume_amount = #{consumeAmount,jdbcType=DECIMAL},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      order_count = #{orderCount,jdbcType=INTEGER},
+      coupon_count = #{couponCount,jdbcType=INTEGER},
+      collect_book_count = #{collectBookCount,jdbcType=INTEGER},
+      collect_comment_count = #{collectCommentCount,jdbcType=INTEGER},
+      recent_order_time = #{recentOrderTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

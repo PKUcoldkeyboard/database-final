@@ -75,6 +75,7 @@ public class JwtAuthController {
 	//修改密码
 	@PostMapping(value = "/changePwd")
 	public ResponseResult changePwd(@Validated @RequestBody ChangePwdParam param) {
-		return ResponseResult.ok();
+		User user=authService.changePwd(param);
+		return ResponseResult.ok().data(BeanUtil.beanToMap(user));
 	}
 }

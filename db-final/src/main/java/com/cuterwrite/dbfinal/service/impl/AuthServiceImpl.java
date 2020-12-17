@@ -72,8 +72,21 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User changePwd(ChangePwdParam changePwdParam) {
-		//@todo
-		return null;
+		final String username=changePwdParam.getUsername();
+		User user=userDao.findByUsername(username);
+		if(user==null) {
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(), "用户名不存在");
+		}
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		final String rawPassword=changePwdParam.getOldPassword();
+		if(!encoder.matches(rawPassword, user.getPassword())) {
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(), "输入的旧密码不正确");
+		}else {
+			String newPassword=encoder.encode(changePwdParam.getNewPassword());
+			user.setPassword(newPassword);
+			userDao.update(user);
+		}
+		return user;
 	}
 
 }

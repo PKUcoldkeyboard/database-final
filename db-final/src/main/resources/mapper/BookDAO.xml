@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.BookDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.Book">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="sale" jdbcType="INTEGER" property="sale" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="album_picture" jdbcType="VARCHAR" property="albumPicture" />
+    <result column="isbn" jdbcType="CHAR" property="isbn" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="press" jdbcType="VARCHAR" property="press" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="page_count" jdbcType="INTEGER" property="pageCount" />
+    <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, create_time, modify_time, category_id, description, picture, price, sale, 
+    stock, album_picture, isbn, author, press, `language`, page_count, publish_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bms_book
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bms_book
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.Book" useGeneratedKeys="true">
+    insert into bms_book (`name`, create_time, modify_time, 
+      category_id, description, picture, 
+      price, sale, stock, 
+      album_picture, isbn, author, 
+      press, `language`, page_count, 
+      publish_date)
+    values (#{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{categoryId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{sale,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, 
+      #{albumPicture,jdbcType=VARCHAR}, #{isbn,jdbcType=CHAR}, #{author,jdbcType=VARCHAR}, 
+      #{press,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{pageCount,jdbcType=INTEGER}, 
+      #{publishDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.Book" useGeneratedKeys="true">
+    insert into bms_book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="sale != null">
+        sale,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="albumPicture != null">
+        album_picture,
+      </if>
+      <if test="isbn != null">
+        isbn,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="press != null">
+        press,
+      </if>
+      <if test="language != null">
+        `language`,
+      </if>
+      <if test="pageCount != null">
+        page_count,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="albumPicture != null">
+        #{albumPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        #{isbn,jdbcType=CHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null">
+        #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="pageCount != null">
+        #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.Book">
+    update bms_book
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="albumPicture != null">
+        album_picture = #{albumPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null">
+        isbn = #{isbn,jdbcType=CHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="press != null">
+        press = #{press,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        `language` = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="pageCount != null">
+        page_count = #{pageCount,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.Book">
+    update bms_book
+    set `name` = #{name,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      sale = #{sale,jdbcType=INTEGER},
+      stock = #{stock,jdbcType=INTEGER},
+      album_picture = #{albumPicture,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=CHAR},
+      author = #{author,jdbcType=VARCHAR},
+      press = #{press,jdbcType=VARCHAR},
+      `language` = #{language,jdbcType=VARCHAR},
+      page_count = #{pageCount,jdbcType=INTEGER},
+      publish_date = #{publishDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
