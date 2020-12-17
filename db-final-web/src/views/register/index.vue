@@ -6,9 +6,6 @@
 						  ref="registerForm"
 						  label-position="left"
 						  autoComplete="on">
-				<div style="text-align: center;">
-					<img src='@/assets/logo.png' style="width: 56px;height: 56px;">
-				</div>
 				<h2 class="login-title">注册</h2>
 				<a-form-model-item has-feedback prop="username">
 					<a-input type="text"
@@ -152,6 +149,7 @@ export default{
 		right: 0;
 		width:360px;
 		margin: 140px auto;
+		box-shadow: 3px 3px 6px rgba(0,0,0,.08);
 	}
 	.login-title{
 		text-align: center;

@@ -6,9 +6,6 @@
 						  ref="loginForm"
 						  label-position="left"
 						  autoComplete="on">
-				<div style="text-align: center;">
-					<img src='@/assets/logo.png' style="width: 56px;height: 56px;">
-				</div>
 				<h2 class="login-title">登录</h2>
 				<a-form-model-item has-feedback prop="username">
 					<a-input type="text"
@@ -117,7 +114,7 @@ export default{
 							setCookie("username",this.loginForm.username,15);
 							setCookie("password",this.loginForm.password,15);
 						}
-						this.$router.push({path:'/index'})
+						this.$router.push({path:'/index/head'})
 					}).catch(()=>{
 						this.loading=false;
 					})

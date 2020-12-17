@@ -17,20 +17,14 @@ const routes = [{
         component: () => import('@/views/register/index')
     },
     {
-        path: '',
-        component: Layout,
-        redirect: '/home',
-        children: [{
-            path: 'home',
-            name: 'home',
-            component: () => import('@/views/home/index'),
-            meta: { title: '首页', icon: 'home' }
-        }]
+        path:'',
+        redirect:'/index/head'
     },
     {
         path: '/index',
         component: () => import('@/views/layout/Layout2'),
-        children: [{
+        children: [
+        {
             path: 'suggest',
             name: 'suggest',
             component: () => import('@/views/suggest/index')

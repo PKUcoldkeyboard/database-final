@@ -3,46 +3,49 @@
         <div class="index">
             <a-layout>
                 <a-affix :offset-top="0">
-                    <div class="isLogin">
-                        <div class="isLoginContent">
-                            <div class="content-item">
-                                欢迎您！庞上智
-                            </div>
-                            <div class="content-item" id="vip-center">
-                                <router-link to="/home">会员中心</router-link>
-                            </div>
-                            <a-button class="exit_button" type="link" @click.native.prevent="sayHello">
-                                退出
-                            </a-button>
+                    <div class="topBar">
+                        <div class="flex-spacer"></div>
+                        <div style="width:33%"><a target="_blank" href="https://github.com/PKUcoldkeyboard/database-final">This project is open source, you can learn more about our project in Github.</a>
+                        </div>
+                        <div class="webTool">
+                            <router-link to="/index/head">
+                                <a-icon type="shopping-cart" />
+                                购物车
+                            </router-link>
+                            <router-link to="/index/head">我的订单</router-link>
+                            <router-link to="/index/head">个人中心</router-link>
+                            <router-link to="/index/head">帮助中心</router-link>
                         </div>
                     </div>
                     <div class="header">
                         <div class="headerLogo">
-                            <div class="headerLogoImg">
-                                <img src="http://139.224.22.9:9090/db-final/20201205/pku.png" alt />
-                            </div>
-                            <div class="headerLogoName">
-                                智慧场馆
-                            </div>
+                            <router-link to="/index/head">
+                                <span>Qsinghua University</span>
+                            </router-link>
                         </div>
                         <div class="tabWrap">
-                            <a-menu mode="horizontal" :default-selected-keys="$route.path">
+                            <a-menu mode="horizontal" :selectedKeys="[this.$route.path]">
                                 <a-menu-item key="/index/head">
                                     <router-link to="/index/head">首页</router-link>
                                 </a-menu-item>
                                 <a-menu-item key="/index/reserve">
-                                    <router-link to="/index/reserve">预约租借</router-link>
+                                    <router-link to="/index/reserve">每日特价</router-link>
                                 </a-menu-item>
                                 <a-menu-item key="/index/suggest">
-                                    <router-link to="/index/suggest">预约须知</router-link>
+                                    <router-link to="/index/suggest">畅销榜</router-link>
                                 </a-menu-item>
                                 <a-menu-item key="/index/map">
-                                    <router-link to="/index/map">场馆地图</router-link>
+                                    <router-link to="/index/map">动态</router-link>
                                 </a-menu-item>
                                 <a-menu-item key="/index/contact">
                                     <router-link to="/index/contact">联系我们</router-link>
                                 </a-menu-item>
                             </a-menu>
+                        </div>
+                        <div class="login-register">
+                            <a-button v-if="login_status===false" type="link" class="login-btn" @click.native.prevent="handleLogin">登录</a-button>
+                            <a-button v-else type="link" class="login-btn" @click.native.prevent="handleLogout">登出</a-button>
+                            <a-button type="primary" class="register-btn" @click.native.prevent="handleRegister">注册</a-button>
                         </div>
                     </div>
                 </a-affix>
@@ -67,12 +70,39 @@ export default {
     data() {
         return {
             locale: zhCN,
-            selectedIndex:''
+            login_status: false,
+        }
+    },
+    created() {
+        if (this.$store.state.user.token) {
+            this.login_status = true;
         }
     },
     methods: {
-        sayHello() {
-            alert("已退出")
+        handleLogin() {
+            this.$router.push({ path: '/login' })
+        },
+        handleRegister() {
+            this.$router.push({ path: '/register' })
+        },
+        handleLogout() {
+            this.$store.dispatch('Logout').then(() => {
+                alert('登出成功!')
+            });
+        }
+    },
+    computed: {
+        token() {
+            return this.$store.state.user.token;
+        }
+    },
+    watch: {
+        token(val) {
+            if (this.login_status) {
+                this.login_status = false;
+            } else {
+                this.login_status = true;
+            }
         }
     }
 }
@@ -103,27 +133,31 @@ img {
     background: #ffffff;
 }
 
-.isLogin {
+.topBar {
     width: 100%;
-    height: 48px;
-    background: #990007;
-}
-
-.isLoginContent {
-    margin-left: 1100px;
-    height: 100%;
+    height: 40px;
+    background: #564695;
     display: flex;
     align-items: center;
-    color: #ffffff;
+    justify-content: center;
 }
 
-.content-item {
-    margin: 0px 10px;
+.webTool {
+    display: flex;
+    justify-content: center;
+    width: 33%;
 }
 
-#vip-center a,
-#vip-center a:hover {
-    color: #f0b953 !important;
+.webTool a {
+    padding: 10px;
+}
+
+.topBar .flex-spacer {
+    width: 33%;
+}
+
+.topBar a {
+    color: #fff !important;
 }
 
 .ant-btn-link {
@@ -132,56 +166,52 @@ img {
 
 .header {
     width: 100%;
-    height: 80px;
+    height: 64px;
     background: #ffffff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, .08)
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .08);
+    display: flex;
 }
 
-.headerLogo {
-    margin-left: 160px;
-    width: 300px;
-    height: 100%;
-    float: left;
+.login-register {
     display: flex;
+    width: 33%;
     align-items: center;
-    justify-content: flex-start;
-}
-
-.headerLogoImg {
-    float: left;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.headerLogoName {
-    margin-left: 24px;
-    height: 100%;
-    align-items: center;
-    display: flex;
-    font-size: 24px;
-    font-weight: 400;
-    color: rgb(50, 57, 62);
+    justify-content: center;
 }
 
 .tabWrap {
-    margin-left: 340px;
-    width: 640px;
-    height: 100%;
-    float: left;
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.login-btn {
+    margin-right: 2%;
+    color: #564695 !important;
+}
+
+.headerLogo {
+    width: 25%;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 1.25rem 0 1.875rem;
+    display: flex;
 }
 
 .ant-menu-item {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 76px;
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 60px;
     margin: 0 5px;
     border-bottom: 4px solid #ffffff !important;
 }
 
 .ant-menu-item-selected {
     color: rgb(50, 57, 62) !important;
-    border-bottom: 4px solid #eb6a1b !important;
+    border-bottom: 4px solid #564695 !important;
 }
 
 .ant-menu-item-active {
