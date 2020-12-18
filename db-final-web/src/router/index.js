@@ -3,9 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-/*Layout */
-import Layout from '@/views/layout/Layout'
-
 const routes = [{
         path: '/login',
         name: 'login',
@@ -18,20 +15,21 @@ const routes = [{
     },
     {
         path:'/findPwd',
+        name:'findPwd',
         component:()=>import('@/views/findPwd/index')
     },
     {
         path:'',
-        redirect:'/index/head'
+        redirect:'/store/index'
     },
     {
-        path: '/index',
-        component: () => import('@/views/layout/Layout2'),
+        path: '/store',
+        component: () => import('@/views/layout/Layout'),
         children: [
         {
             path: 'suggest',
             name: 'suggest',
-            component: () => import('@/views/suggest/index')
+            component: () => import('@/views/suggest')
         },
         {
             path:'reserve',
@@ -49,9 +47,9 @@ const routes = [{
             component:()=>import('@/views/contact')
         },
         {
-            path:'head',
-            name:'head',
-            component:()=>import('@/views/head')
+            path:'index',
+            name:'index',
+            component:()=>import('@/views/index')
         }]
     }
 ]
