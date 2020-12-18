@@ -51,10 +51,7 @@ export function changePwd(username,oldPass,newPass){
 
 export function verify(receiver){
 	return request({
-		url:'/sendEmail',
+		url:'/sendEmail?receiver='+receiver,
 		method:'get',
-		data:{
-			receiver:receiver
-		}
 	})
 }

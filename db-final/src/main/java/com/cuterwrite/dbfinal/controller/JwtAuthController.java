@@ -64,6 +64,7 @@ public class JwtAuthController {
 		Role role=new Role();
 		role.setRoleId(1);
 		role.setRoleName("ROLE_USER");
+		roles.add(role);
 		userToAdd.setUsername(registerParam.getUsername());
 		userToAdd.setPassword(registerParam.getPassword());
 		userToAdd.setRoles(roles);
