@@ -49,7 +49,7 @@ export function changePwd(username,oldPass,newPass){
 	})
 }
 
-export function veryfy(receiver){
+export function verify(receiver){
 	return request({
 		url:'/sendEmail',
 		method:'get',
