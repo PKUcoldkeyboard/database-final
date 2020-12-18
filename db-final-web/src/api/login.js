@@ -48,3 +48,13 @@ export function changePwd(username,oldPass,newPass){
 		}
 	})
 }
+
+export function veryfy(receiver){
+	return request({
+		url:'/sendEmail',
+		method:'get',
+		data:{
+			receiver:receiver
+		}
+	})
+}

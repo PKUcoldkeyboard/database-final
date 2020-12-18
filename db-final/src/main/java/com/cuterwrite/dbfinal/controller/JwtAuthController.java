@@ -1,9 +1,12 @@
 package com.cuterwrite.dbfinal.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResponseResult;
+import com.cuterwrite.dbfinal.common.ResultCode;
 import com.cuterwrite.dbfinal.dto.ChangePwdParam;
 import com.cuterwrite.dbfinal.dto.LoginParam;
+import com.cuterwrite.dbfinal.dto.RegisterParam;
+import com.cuterwrite.dbfinal.entity.Role;
 import com.cuterwrite.dbfinal.entity.User;
+import com.cuterwrite.dbfinal.exception.CMSException;
 import com.cuterwrite.dbfinal.service.AuthService;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -45,10 +52,22 @@ public class JwtAuthController {
 		return ResponseResult.ok().data(tokenMap).message("登录成功");
 	}
 	
-	//注册
+	//普通用户注册
 	@PostMapping(value = "/register")
-	public ResponseResult register(@RequestBody User addedUser) {
-		User user = authService.register(addedUser);
+	public ResponseResult register(@RequestBody @Valid RegisterParam registerParam,HttpSession session) {
+		String code=(String)session.getAttribute("verification");
+		if(!registerParam.getCode().equals(code)) {
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"邮箱验证码不正确");
+		}
+		User userToAdd=new User();
+		List<Role>roles=new ArrayList<>();
+		Role role=new Role();
+		role.setRoleId(1);
+		role.setRoleName("ROLE_USER");
+		userToAdd.setUsername(registerParam.getUsername());
+		userToAdd.setPassword(registerParam.getPassword());
+		userToAdd.setRoles(roles);
+		User user = authService.register(userToAdd);
 		return ResponseResult.ok().data(BeanUtil.beanToMap(user));
 	}
 	
