@@ -1,6 +1,5 @@
 package com.cuterwrite.dbfinal.service;
 
-import javax.servlet.http.HttpSession;
 
 /**  
  * 邮箱验证服务
@@ -14,5 +13,5 @@ public interface ValidateMailService {
 	 * @param to 收件人邮箱
 	 * @param session
 	 */
-	void sendEmail(String to,HttpSession session);
+	String sendEmail(String to);
 }

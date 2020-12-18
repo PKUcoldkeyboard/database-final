@@ -25,14 +25,14 @@ export function getInfo(){
 	})
 }
 
-export function register(username,password){
+export function register(username,password,code){
 	return request({
 		url:'/auth/register',
 		method:'post',
 		data:{
 			username:username,
 			password:password,
-			roles:[{roleId:1,roleName:'ROLE_USER'}],
+			code:code,
 		}
 	})
 }

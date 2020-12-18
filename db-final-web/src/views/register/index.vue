@@ -175,7 +175,7 @@ export default{
 				if(valid){
 					this.loading=true;
 					new Promise((resolve,reject)=>{
-						register(this.registerForm.username,this.registerForm.oldPassword)
+						register(this.registerForm.username,this.registerForm.oldPassword,this.registerForm.code)
 						.then(()=>{
 							resolve()
 						}).catch(error=>{

@@ -55,7 +55,7 @@ public class JwtAuthController {
 	//普通用户注册
 	@PostMapping(value = "/register")
 	public ResponseResult register(@RequestBody @Valid RegisterParam registerParam,HttpSession session) {
-		String code=(String)session.getAttribute("verification");
+		String code=session.getAttribute("verification").toString();
 		if(!registerParam.getCode().equals(code)) {
 			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"邮箱验证码不正确");
 		}

@@ -21,7 +21,8 @@ public class MailController {
 	
 	@GetMapping("/sendEmail")
 	public ResponseResult sendEmail(@RequestParam String receiver,HttpSession session) {
-		validateMailService.sendEmail(receiver, session);
+		String code=validateMailService.sendEmail(receiver);
+		session.setAttribute("verification", code);
 		return ResponseResult.ok();
 	}
 }
