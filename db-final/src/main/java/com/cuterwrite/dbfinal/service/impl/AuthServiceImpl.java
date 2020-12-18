@@ -1,5 +1,7 @@
 package com.cuterwrite.dbfinal.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,8 +15,11 @@ import org.springframework.stereotype.Service;
 import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResultCode;
 import com.cuterwrite.dbfinal.dao.UserDAO;
+import com.cuterwrite.dbfinal.dao.UserEmailDAO;
 import com.cuterwrite.dbfinal.dto.ChangePwdParam;
+import com.cuterwrite.dbfinal.dto.FindPwdParam;
 import com.cuterwrite.dbfinal.entity.User;
+import com.cuterwrite.dbfinal.entity.UserEmail;
 import com.cuterwrite.dbfinal.exception.CMSException;
 import com.cuterwrite.dbfinal.service.AuthService;
 import com.cuterwrite.dbfinal.util.JwtTokenUtil;
@@ -38,8 +43,11 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private UserDAO userDao;
 	
+	@Autowired
+	private UserEmailDAO userEmailDao;
+	
 	@Override
-	public User register(User userToAdd) {
+	public User register(User userToAdd,String email) {
 		final String username=userToAdd.getUsername();
 		if(userDao.findByUsername(username)!=null) {
 			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"用户名已经被注册");
@@ -47,8 +55,14 @@ public class AuthServiceImpl implements AuthService {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		final String rawPassword=userToAdd.getPassword();
 		userToAdd.setPassword(encoder.encode(rawPassword));
-		userDao.insert(userToAdd);
+		Long userId=new Long((long)userDao.insert(userToAdd));
 		userDao.insertUserRole(userToAdd);
+		UserEmail record=new UserEmail();
+		record.setUserId(userId);
+		record.setEmail(email);
+		record.setCreateTime(new Date());
+		record.setModifyTime(new Date());
+		userEmailDao.insert(record);
 		return userToAdd;
 	}
 
@@ -87,6 +101,18 @@ public class AuthServiceImpl implements AuthService {
 			userDao.update(user);
 		}
 		return user;
+	}
+
+	@Override
+	public void findPwd(FindPwdParam param) {
+		final String username=param.getUsername();
+		User user=userDao.findByUsername(username);
+		if(user==null) {
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"用户名不存在");
+		}
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		user.setPassword(encoder.encode(param.getNewPassword()));
+		userDao.update(user);
 	}
 
 }

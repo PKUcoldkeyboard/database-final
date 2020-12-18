@@ -1,51 +1,33 @@
 <template>
 	<div>
 		<a-card class="login-form-layout">
-			<a-form-model :model="registerForm"
-						  :rules="registerRules"
-						  ref="registerForm"
-						  label-position="left"
-						  autoComplete="on">
-				<h2 class="login-title">注册</h2>
+			<a-form-model :model="form"
+						  :rules="rules"
+						  ref="form"
+						  label-position:leff
+						  autoComplet="on">
+				<h2 class="login-title">找回密码</h2>
 				<a-form-model-item has-feedback prop="username">
 					<a-input type="text"
 							 placeholder="请输入帐号" 
-							 v-model="registerForm.username"
+							 v-model="form.username"
 							 autoComplete="on">
 						<a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
 					</a-input>
 				</a-form-model-item>
-				<a-form-model-item has-feedback prop="oldPassword">
-					<a-input :type="oldPwdType"
-							 placeholder="请输入密码"
-							 v-model="registerForm.oldPassword"
-							 autoComplete="on">
-						<a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
-						<a-icon slot="suffix" type="eye" style="color:rgba(0,0,0,.25)" @click="showOldPwd"/>
-					</a-input>
-				</a-form-model-item>
 				<a-form-model-item has-feedback prop="newPassword">
 					<a-input :type="newPwdType"
-							 placeholder="请再次输入密码"
-							 v-model="registerForm.newPassword"
-							 @keyup.enter.native="handleRegister"
+							 placeholder="请输入新密码"
+							 v-model="form.newPassword"
 							 autoComplete="on">
 						<a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
 						<a-icon slot="suffix" type="eye" style="color:rgba(0,0,0,.25)" @click="showNewPwd"/>
 					</a-input>
 				</a-form-model-item>
-				<a-form-model-item has-feedback prop="email">
-					<a-input type="text"
-							 placeholder="请输入邮箱地址"
-							 v-model="registerForm.email"
-							 autoComplete="on">
-						<a-icon slot="prefix" type="mail" style="color:rgba(0,0,0,.25)"/>
-					</a-input>
-				</a-form-model-item>
 				<a-form-model-item has-feedback prop="code">
 					<a-input type="text"
 							 placeholder="请输入邮箱验证码"
-							 v-model="registerForm.code"
+							 v-model="form.code"
 							 autoComplete="on">
 						<a-icon slot="prefix" type="codepen" style="color:rgba(0,0,0,.25)"/>
 						<!--实际场景要设置按钮禁用，防止多次点击，这里简单起见就不设置了-->
@@ -53,12 +35,12 @@
 					</a-input>
 				</a-form-model-item>
 				<a-form-model-item style="margin-bottom: 60px;text-align: center;">
-					<a-button type="primary" :loading="loading" @click.native.prevent="handleRegister"
+					<a-button type="primary" :loading="loading" @click.native.prevent="handleFind"
 							  style="width: 100%">
-						注册
+						确定
 					</a-button>
 					<a-button type="default" @click.native.prevent="handleLogin" style="width: 100%">
-						已有账号
+						登录
 					</a-button>
 				</a-form-model-item>
 			</a-form-model>
@@ -68,10 +50,9 @@
 
 <script>
 import {validUsername,validPassword,validEmail} from '@/utils/validate'
-import {register,verify} from '@/api/login'
+import {verifyForFindPwd,findPwd} from '@/api/login'
 import {setCookie} from '@/utils/support'
 export default{
-	name:'register',
 	data(){
 		const validateUsername=(rule,value,callback)=>{
 			if(!validUsername(value)){
@@ -87,22 +68,6 @@ export default{
 				callback()
 			}
 		};
-		const samePassword=(rule,value,callback)=>{
-			if(value!=this.registerForm.oldPassword){
-				callback(new Error('两次输入的密码不一致'))
-			}else if(value===''){
-				callback(new Error('密码为同时含有大小写字母、数字的8-16位组合'))
-			}else{
-				callback()
-			}
-		};
-		const validateEmail=(rule,value,callback)=>{
-			if(!validEmail(value)){
-				callback(new Error('请输入正确的邮箱地址'))
-			}else{
-				callback()
-			}
-		};
 		const validateCode=(rule,value,callback)=>{
 			if(value.length!=6){
 				callback(new Error('请输入6位验证码'))
@@ -111,34 +76,21 @@ export default{
 			}
 		};
 		return{
-			receiver:'',
-			registerForm:{
+			form:{
 				username:'',
-				oldPassword:'',
 				newPassword:'',
-				email:'',
 				code:'',
 			},
-			registerRules:{
+			rules:{
 				username:[{required:true,trigger:'blur',validator:validateUsername}],
-				oldPassword:[{required:true,trigger:'blur',validator:validatePassword}],
-				newPassword:[{required:true,trigger:'blur',validator:samePassword}],
-				email:[{required:true,trigger:'blur',validator:validateEmail}],
+				newPassword:[{required:true,trigger:'blur',validator:validatePassword}],				
 				code:[{required:true,trigger:'blur',validator:validateCode}],
 			},
 			loading:false,
-			oldPwdType:'password',
 			newPwdType:'password',
 		}
 	},
 	methods:{
-		showOldPwd(){
-			if(this.oldPwdType==='password'){
-				this.oldPwdType=''
-			}else{
-				this.oldPwdType='password'
-			}
-		},
 		showNewPwd(){
 			if(this.newPwdType==='password'){
 				this.newPwdType=''
@@ -147,9 +99,9 @@ export default{
 			}
 		},
 		sendEmail(){
-			if(validEmail(this.registerForm.email)){
+			if(validUsername(this.form.username)){
 				new Promise((resolve,reject)=>{
-					verify(this.registerForm.email)
+					verifyForFindPwd(this.form.username)
 					.then(()=>{
 						resolve()
 					}).catch(error=>{
@@ -163,17 +115,17 @@ export default{
 				})
 			}else{
 				this.$message.error({
-					content:'请先输入正确的邮箱地址',
+					content:'请先输入正确的帐号',
 					duration:3,
 				})
 			}
 		},
-		handleRegister(){
-			this.$refs.registerForm.validate(valid=>{
+		handleFind(){
+			this.$refs.form.validate(valid=>{
 				if(valid){
 					this.loading=true;
 					new Promise((resolve,reject)=>{
-						register(this.registerForm.username,this.registerForm.oldPassword,this.registerForm.code,this.registerForm.email)
+						findPwd(this.form.username,this.form.newPassword,this.form.code)
 						.then(()=>{
 							resolve()
 						}).catch(error=>{
@@ -184,7 +136,7 @@ export default{
 						setCookie("username",this.form.username,15);
 						setCookie("password",this.form.newPassword,15);
 						this.$message.success({
-							content:'注册成功',
+							content:'修改密码成功',
 							duration:3,
 						})
 					}).catch(()=>{

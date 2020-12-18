@@ -17,6 +17,10 @@ const routes = [{
         component: () => import('@/views/register/index')
     },
     {
+        path:'/findPwd',
+        component:()=>import('@/views/findPwd/index')
+    },
+    {
         path:'',
         redirect:'/index/head'
     },

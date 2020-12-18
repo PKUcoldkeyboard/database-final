@@ -21,6 +21,7 @@ import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResponseResult;
 import com.cuterwrite.dbfinal.common.ResultCode;
 import com.cuterwrite.dbfinal.dto.ChangePwdParam;
+import com.cuterwrite.dbfinal.dto.FindPwdParam;
 import com.cuterwrite.dbfinal.dto.LoginParam;
 import com.cuterwrite.dbfinal.dto.RegisterParam;
 import com.cuterwrite.dbfinal.entity.Role;
@@ -68,7 +69,8 @@ public class JwtAuthController {
 		userToAdd.setUsername(registerParam.getUsername());
 		userToAdd.setPassword(registerParam.getPassword());
 		userToAdd.setRoles(roles);
-		User user = authService.register(userToAdd);
+		User user = authService.register(userToAdd,registerParam.getEmail());
+		session.removeAttribute("verification");
 		return ResponseResult.ok().data(BeanUtil.beanToMap(user));
 	}
 	
@@ -97,5 +99,16 @@ public class JwtAuthController {
 	public ResponseResult changePwd(@Validated @RequestBody ChangePwdParam param) {
 		User user=authService.changePwd(param);
 		return ResponseResult.ok().data(BeanUtil.beanToMap(user));
+	}
+	@PostMapping(value="/findPwd")
+	public ResponseResult findPwd(@Validated @RequestBody FindPwdParam param,HttpSession session) {
+		String code=session.getAttribute("findPwdCode").toString();
+		if(!param.getCode().equals(code)) {
+			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"邮箱验证码不正确");
+		}
+		authService.findPwd(param);
+		//回收
+		session.removeAttribute("findPwdCode");
+		return ResponseResult.ok();
 	}
 }

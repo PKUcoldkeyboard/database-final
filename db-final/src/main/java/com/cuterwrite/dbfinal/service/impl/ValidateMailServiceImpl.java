@@ -25,7 +25,7 @@ public class ValidateMailServiceImpl implements ValidateMailService{
 		//验证码
 		String code=RandomUtil.randomString(6);
 		String title="请验证您的邮箱地址";
-		String content="请在找回密码验证页的相应位置输入如下验证码：\r\n" + 
+		String content="请在相应位置输入如下验证码：\r\n" + 
 				"\r\n\r\n" + code +
 				"\r\n" + 
 				"\r\n" + 
