@@ -107,7 +107,6 @@ public class JwtAuthController {
 			throw new CMSException(ResultCode.PARAM_ERROR.getCode(),"邮箱验证码不正确");
 		}
 		authService.findPwd(param);
-		//回收
 		session.removeAttribute("findPwdCode");
 		return ResponseResult.ok();
 	}

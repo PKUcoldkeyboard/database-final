@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cuterwrite.dbfinal.common.Const;
 import com.cuterwrite.dbfinal.common.ResultCode;
@@ -47,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
 	private UserEmailDAO userEmailDao;
 	
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public User register(User userToAdd,String email) {
 		final String username=userToAdd.getUsername();
 		if(userDao.findByUsername(username)!=null) {
@@ -55,10 +57,11 @@ public class AuthServiceImpl implements AuthService {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		final String rawPassword=userToAdd.getPassword();
 		userToAdd.setPassword(encoder.encode(rawPassword));
-		Long userId=new Long((long)userDao.insert(userToAdd));
+		userDao.insert(userToAdd);
 		userDao.insertUserRole(userToAdd);
+
 		UserEmail record=new UserEmail();
-		record.setUserId(userId);
+		record.setUserId((long)userDao.findByUsername(username).getId());
 		record.setEmail(email);
 		record.setCreateTime(new Date());
 		record.setModifyTime(new Date());

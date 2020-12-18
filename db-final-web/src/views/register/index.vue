@@ -49,7 +49,7 @@
 							 autoComplete="on">
 						<a-icon slot="prefix" type="codepen" style="color:rgba(0,0,0,.25)"/>
 						<!--实际场景要设置按钮禁用，防止多次点击，这里简单起见就不设置了-->
-						<a-button slot="suffix" type="link" @click.native.prevent="sendEmail">获取验证码</a-button>
+						<a-button slot="suffix" type="link" style="color:#564695" @click.native.prevent="sendEmail">获取验证码</a-button>
 					</a-input>
 				</a-form-model-item>
 				<a-form-model-item style="margin-bottom: 60px;text-align: center;">
@@ -181,8 +181,8 @@ export default{
 						})
 					}).then(()=>{
 						this.loading=false;
-						setCookie("username",this.form.username,15);
-						setCookie("password",this.form.newPassword,15);
+						setCookie("username",this.registerForm.username,15);
+						setCookie("password",this.registerForm.oldPassword,15);
 						this.$message.success({
 							content:'注册成功',
 							duration:3,
