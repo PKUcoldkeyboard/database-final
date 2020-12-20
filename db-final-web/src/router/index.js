@@ -27,19 +27,19 @@ const routes = [{
         component: () => import('@/views/layout/Layout'),
         children: [
         {
-            path: 'suggest',
-            name: 'suggest',
-            component: () => import('@/views/suggest')
+            path: 'bestSeller',
+            name: 'bestSeller',
+            component: () => import('@/views/bestSeller')
         },
         {
-            path:'reserve',
-            name:'reserve',
-            component:()=>import('@/views/reserve')
+            path:'specials',
+            name:'specials',
+            component:()=>import('@/views/specials')
         },
         {
-            path:'map',
-            name:'map',
-            component:()=>import('@/views/map')
+            path:'dynamic',
+            name:'dynamic',
+            component:()=>import('@/views/dynamic')
         },
         {
             path:'contact',

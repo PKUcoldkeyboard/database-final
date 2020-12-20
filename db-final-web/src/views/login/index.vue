@@ -114,7 +114,7 @@ export default{
 							setCookie("username",this.loginForm.username,15);
 							setCookie("password",this.loginForm.password,15);
 						}
-						this.$router.push({path:'/index/head'})
+						this.$router.push({path:'/store/index'})
 					}).catch(()=>{
 						this.loading=false;
 					})

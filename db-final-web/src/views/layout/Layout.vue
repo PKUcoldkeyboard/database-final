@@ -28,14 +28,14 @@
                                 <a-menu-item key="/store/index">
                                     <router-link to="/store/index">首页</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="/store/reserve">
-                                    <router-link to="/store/reserve">每日特价</router-link>
+                                <a-menu-item key="/store/specials">
+                                    <router-link to="/store/specials">每日特价</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="/store/suggest">
-                                    <router-link to="/store/suggest">畅销榜</router-link>
+                                <a-menu-item key="/store/bestSeller">
+                                    <router-link to="/store/bestSeller">畅销榜</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="/store/map">
-                                    <router-link to="/store/map">动态</router-link>
+                                <a-menu-item key="/store/dynamic">
+                                    <router-link to="/store/dynamic">动态</router-link>
                                 </a-menu-item>
                                 <a-menu-item key="/store/contact">
                                     <router-link to="/store/contact">联系我们</router-link>

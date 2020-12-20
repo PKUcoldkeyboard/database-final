@@ -2,11 +2,11 @@
     <div>
         <a-breadcrumb separator="">
             <a-breadcrumb-item>
-                <router-link to="/index/head">当前位置：首页</router-link>
+                <router-link to="/store/index">当前位置：首页</router-link>
             </a-breadcrumb-item>
             <a-breadcrumb-separator>></a-breadcrumb-separator>
             <a-breadcrumb-item>
-                预约须知
+                畅销榜
             </a-breadcrumb-item>
         </a-breadcrumb>
         <a-divider></a-divider>
