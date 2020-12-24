@@ -6,7 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
-    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="picture" jdbcType="VARCHAR" property="picture" />
     <result column="price" jdbcType="DECIMAL" property="price" />
@@ -34,23 +34,26 @@
     delete from bms_book
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.Book" useGeneratedKeys="true">
-    insert into bms_book (`name`, create_time, modify_time, 
-      category_id, description, picture, 
-      price, sale, stock, 
-      album_picture, isbn, author, 
-      press, `language`, page_count, 
-      publish_date)
-    values (#{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{categoryId,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{sale,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER}, 
-      #{albumPicture,jdbcType=VARCHAR}, #{isbn,jdbcType=CHAR}, #{author,jdbcType=VARCHAR}, 
-      #{press,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{pageCount,jdbcType=INTEGER}, 
-      #{publishDate,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.Book">
+    insert into bms_book (id, `name`, create_time, 
+      modify_time, category_id, description, 
+      picture, price, sale, 
+      stock, album_picture, isbn, 
+      author, press, `language`, 
+      page_count, publish_date)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{categoryId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{sale,jdbcType=INTEGER}, 
+      #{stock,jdbcType=INTEGER}, #{albumPicture,jdbcType=VARCHAR}, #{isbn,jdbcType=CHAR}, 
+      #{author,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{pageCount,jdbcType=INTEGER}, #{publishDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.Book" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.Book">
     insert into bms_book
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="name != null">
         `name`,
       </if>
@@ -101,6 +104,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -111,7 +117,7 @@
         #{modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="categoryId != null">
-        #{categoryId,jdbcType=VARCHAR},
+        #{categoryId,jdbcType=BIGINT},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -164,7 +170,7 @@
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="categoryId != null">
-        category_id = #{categoryId,jdbcType=VARCHAR},
+        category_id = #{categoryId,jdbcType=BIGINT},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -210,7 +216,7 @@
     set `name` = #{name,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      category_id = #{categoryId,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=BIGINT},
       description = #{description,jdbcType=VARCHAR},
       picture = #{picture,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
