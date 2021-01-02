@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cuterwrite.dbfinal.elasticsearch.dao.BookRepository;
+import com.cuterwrite.dbfinal.elasticsearch.BookRepository;
 import com.cuterwrite.dbfinal.entity.Book;
 import com.cuterwrite.dbfinal.service.TestService;
 

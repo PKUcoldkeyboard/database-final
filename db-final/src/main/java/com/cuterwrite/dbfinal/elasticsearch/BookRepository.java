@@ -1,4 +1,4 @@
-package com.cuterwrite.dbfinal.elasticsearch.dao;
+package com.cuterwrite.dbfinal.elasticsearch;
 
 
 import java.util.List;
