@@ -209,6 +209,7 @@ export default{
 		right: 0;
 		width:360px;
 		margin: 80px auto;
+		border-radius: 20px;
 		box-shadow: 3px 3px 6px rgba(0,0,0,.08);
 	}
 	.login-title{
