@@ -50,7 +50,29 @@ const routes = [{
             path:'index',
             name:'index',
             component:()=>import('@/views/index')
-        }]
+        },
+        {
+            path:'cart',
+            name:'cart',
+            component:()=>import('@/views/cart')
+        }
+        ,
+        {
+            path:'help',
+            name:'help',
+            component:()=>import('@/views/help')
+        },
+        {
+            path:'center',
+            name:'center',
+            component:()=>import('@/views/center')
+        },
+        {
+            path:'order',
+            name:'order',
+            component:()=>import('@/views/order')
+        },
+        ]
     }
 ]
 

@@ -8,18 +8,18 @@
                         <div style="width:33%"><a target="_blank" href="https://github.com/PKUcoldkeyboard/database-final">This project is open source, you can learn more about our project in Github.</a>
                         </div>
                         <div class="webTool">
-                            <router-link to="/">
+                            <router-link to="/store/cart">
                                 <a-icon type="shopping-cart" />
                                 购物车
                             </router-link>
-                            <router-link to="/">我的订单</router-link>
-                            <router-link to="/">个人中心</router-link>
-                            <router-link to="/">帮助中心</router-link>
+                            <router-link to="/store/order">我的订单</router-link>
+                            <router-link to="/store/center">个人中心</router-link>
+                            <router-link to="/store/help">帮助中心</router-link>
                         </div>
                     </div>
                     <div class="header">
                         <div class="headerLogo">
-                            <router-link to="/index/head">
+                            <router-link to="/store/index">
                                 <span>Qsinghua University</span>
                             </router-link>
                         </div>
