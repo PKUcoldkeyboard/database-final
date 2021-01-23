@@ -1,5 +1,6 @@
 package com.cuterwrite.dbfinal.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class CartServiceImpl implements CartService {
 			origin=dao.selectByPrimaryKey(id);
 		}
 		origin.setQuantity(item.getQuantity());
+		origin.setModifyTime(new Date());
 		redisService.set("cart"+id, JSONUtil.toJsonStr(origin));
 		return dao.updateByPrimaryKeySelective(origin);
 	}
