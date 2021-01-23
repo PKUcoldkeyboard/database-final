@@ -15,6 +15,7 @@
     <result column="book_id" jdbcType="BIGINT" property="bookId" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="new_price" jdbcType="DECIMAL" property="newPrice"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="author" jdbcType="VARCHAR" property="author"/>
     <result column="press" jdbcType="VARCHAR" property="press"/>
     <result column="picture" jdbcType="VARCHAR" property="picture"/>
@@ -23,7 +24,7 @@
     id, book_id, `count`, discount, price, create_time, modify_time
   </sql>
   <select id="selectAll" resultMap="DiscountedBook">
-  	select bms_book_discount.id,book_id,bms_book_discount.price as new_price,bms_book.price as price,author,press,picture
+  	select bms_book_discount.id,book_id,bms_book_discount.price as new_price,bms_book.price as price,name,author,press,picture
   	from bms_book_discount,bms_book
   	where bms_book_discount.book_id=bms_book.id
   </select>

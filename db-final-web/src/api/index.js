@@ -1,5 +1,4 @@
 import request from '@/utils/request'
-import getCookie from '@/utils/support'
 
 export function searchBooks(keyword,categoryName,pageNum,pageSize,sort){
 	return request({

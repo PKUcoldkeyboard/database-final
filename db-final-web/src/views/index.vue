@@ -27,7 +27,7 @@
                 <ul>
                     <li v-for="book in list">
                         <div class="cover">
-                            <img src="http://image12.bookschina.com/2013/20131223/s5835607.jpg" />
+                            <img :src="book.pic"/>
                         </div>
                         <div class="info">
                             <h2 class="name">{{book.bookName}}</h2>
@@ -110,10 +110,12 @@ export default {
         },
         handleCategoryChange(categoryName) {
             this.categoryName = categoryName;
+            this.pageNum=1;
             this.getList();
         },
         handleSortChange(sort) {
             this.sort = sort;
+            this.pageNum=1;
             this.getList();
         },
         handleCurrentChange(pageNum) {
@@ -123,12 +125,10 @@ export default {
         handleAddCart(e) {
             let bookId = e.currentTarget.id;
             let price = e.currentTarget.parentElement.previousElementSibling.previousElementSibling.firstElementChild.innerHTML.substr(1);
-            console.log("entrance1")
             let username=getCookie('username');
-            addCart(username,bookId, price).then(response => {
-                this.$message.success({
-                    content: '加入购物车成功',
-                    duration: 3,
+            addCart(username,bookId, price).then(() => {
+                this.$success({
+                    title:'加入购物车成功'
                 })
             })
         }
@@ -215,5 +215,8 @@ export default {
     display: inline;
     margin-right: 20px;
     text-align: center;
+}
+.bookList .cover img{
+    height: 200px;
 }
 </style>
