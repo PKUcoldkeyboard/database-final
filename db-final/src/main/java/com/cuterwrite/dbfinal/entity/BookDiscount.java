@@ -8,7 +8,7 @@ import java.util.Date;
  * @author 
  * 
  */
-public class BookLadder implements Serializable {
+public class BookDiscount implements Serializable {
     /**
      * 自增id
      */
@@ -113,7 +113,7 @@ public class BookLadder implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        BookLadder other = (BookLadder) that;
+        BookDiscount other = (BookDiscount) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
             && (this.getCount() == null ? other.getCount() == null : this.getCount().equals(other.getCount()))

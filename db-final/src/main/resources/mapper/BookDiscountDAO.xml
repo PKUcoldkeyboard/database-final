@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuterwrite.dbfinal.dao.BookLadderDAO">
-  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.BookLadder">
+<mapper namespace="com.cuterwrite.dbfinal.dao.BookDiscountDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.BookDiscount">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="book_id" jdbcType="BIGINT" property="bookId" />
     <result column="count" jdbcType="INTEGER" property="count" />
@@ -10,30 +10,47 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
+  <resultMap id="DiscountedBook" type="com.cuterwrite.dbfinal.entity.DiscountedBook">
+  	 <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="new_price" jdbcType="DECIMAL" property="newPrice"/>
+    <result column="author" jdbcType="VARCHAR" property="author"/>
+    <result column="press" jdbcType="VARCHAR" property="press"/>
+    <result column="picture" jdbcType="VARCHAR" property="picture"/>
+  </resultMap>
   <sql id="Base_Column_List">
     id, book_id, `count`, discount, price, create_time, modify_time
   </sql>
+  <select id="selectAll" resultMap="DiscountedBook">
+  	select bms_book_discount.id,book_id,bms_book_discount.price as new_price,bms_book.price as price,author,press,picture
+  	from bms_book_discount,bms_book
+  	where bms_book_discount.book_id=bms_book.id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from bms_book_ladder
+    from bms_book_discount
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from bms_book_ladder
+    delete from bms_book_discount
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.BookLadder" useGeneratedKeys="true">
-    insert into bms_book_ladder (book_id, `count`, discount, 
-      price, create_time, modify_time
-      )
-    values (#{bookId,jdbcType=BIGINT}, #{count,jdbcType=INTEGER}, #{discount,jdbcType=DECIMAL}, 
-      #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    insert into bms_book_discount (id, book_id, `count`, 
+      discount, price, create_time, 
+      modify_time)
+    values (#{id,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT}, #{count,jdbcType=INTEGER}, 
+      #{discount,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.BookLadder" useGeneratedKeys="true">
-    insert into bms_book_ladder
+  <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    insert into bms_book_discount
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="bookId != null">
         book_id,
       </if>
@@ -54,6 +71,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="bookId != null">
         #{bookId,jdbcType=BIGINT},
       </if>
@@ -74,8 +94,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.BookLadder">
-    update bms_book_ladder
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    update bms_book_discount
     <set>
       <if test="bookId != null">
         book_id = #{bookId,jdbcType=BIGINT},
@@ -98,8 +118,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.BookLadder">
-    update bms_book_ladder
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    update bms_book_discount
     set book_id = #{bookId,jdbcType=BIGINT},
       `count` = #{count,jdbcType=INTEGER},
       discount = #{discount,jdbcType=DECIMAL},

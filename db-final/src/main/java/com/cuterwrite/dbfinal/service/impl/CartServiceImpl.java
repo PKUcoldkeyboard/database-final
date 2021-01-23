@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public int update(Long id, CartItem item) {
 		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(item));
-		return dao.updateByPrimaryKey(item);
+		return dao.updateByPrimaryKeySelective(item);
 	}
 
 	@Override
@@ -63,6 +63,4 @@ public class CartServiceImpl implements CartService {
 		return item;
 	}
 	
-
-
 }
