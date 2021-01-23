@@ -31,4 +31,9 @@ public interface CartService {
 	@Transactional
 	int delete(Long id);
 	
+	/**
+	 * 查询购物车项
+	 */
+	CartItem select(Long id);
+	
 }

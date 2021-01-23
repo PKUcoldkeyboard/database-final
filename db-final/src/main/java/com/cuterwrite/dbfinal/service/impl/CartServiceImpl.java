@@ -27,13 +27,13 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int insert(CartItem item) {
-		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(CartItem.class));
+		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(item));
 		return dao.insert(item);
 	}
 
 	@Override
 	public int update(Long id, CartItem item) {
-		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(CartItem.class));
+		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(item));
 		return dao.updateByPrimaryKey(item);
 	}
 
@@ -48,6 +48,18 @@ public class CartServiceImpl implements CartService {
 	public int delete(Long id) {
 		redisService.remove("cart"+id);
 		return dao.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public CartItem select(Long id) {
+		//先从缓存取数据
+		String value=redisService.get("cart"+id);
+		if(value!=null) {
+			return JSONUtil.toBean(value,CartItem.class);
+		}
+		CartItem item=dao.selectByPrimaryKey(id);
+		redisService.set("cart"+id, JSONUtil.toJsonStr(item));
+		return item;
 	}
 	
 
