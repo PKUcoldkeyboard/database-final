@@ -57,7 +57,7 @@ public class OrderController {
 	}
 	@GetMapping("/item/sn/{orderId}")
 	public ResponseResult findBySn(@PathVariable("orderId") String orderId) {
-		//
+		//修改代码
 		return ResponseResult.ok().data(BeanUtil.beanToMap(orderService.selectBySn(orderId)));
 	}
 }
