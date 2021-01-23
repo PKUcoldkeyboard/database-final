@@ -24,6 +24,17 @@
     confirm_status, `status`, delete_status, note, create_time, modify_time, receive_time, 
     pay_time
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from oms_order
+  </select>
+  <select id="selectByOrderId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from oms_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

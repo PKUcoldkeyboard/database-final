@@ -34,15 +34,17 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int update(Long id, CartItem item) {
+		//先从缓存拿
 		String value=redisService.get("cart"+id);
+		CartItem origin=new CartItem();
 		if(value!=null) {
-			CartItem origin=JSONUtil.toBean(value, CartItem.class);
-			origin.setQuantity(item.getQuantity());
-			redisService.set("cart"+id, JSONUtil.toJsonStr(origin));
+		    origin=JSONUtil.toBean(value, CartItem.class);
+		}else {
+			origin=dao.selectByPrimaryKey(id);
 		}
-		CartItem cart=dao.selectByPrimaryKey(id);
-		cart.setQuantity(item.getQuantity());
-		return dao.updateByPrimaryKeySelective(cart);
+		origin.setQuantity(item.getQuantity());
+		redisService.set("cart"+id, JSONUtil.toJsonStr(origin));
+		return dao.updateByPrimaryKeySelective(origin);
 	}
 
 	@Override
