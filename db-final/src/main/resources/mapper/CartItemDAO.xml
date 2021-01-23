@@ -23,6 +23,9 @@
   <sql id="Base_Column_List">
     id, book_id, quantity, price, create_time, modify_time, user_id
   </sql>
+  <select id="selectLast" resultType="java.lang.Long">
+  	select id from oms_cart_item order by id desc limit 1,1;
+  </select>
   <select id="selectAll" resultMap="BookAndCart">
   	select
   	oms_cart_item.id,book_id,quantity,oms_cart_item.price,oms_cart_item.create_time,name,picture,user_id

@@ -29,8 +29,11 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int insert(CartItem item) {
-		redisService.set("cart"+item.getId(), JSONUtil.toJsonStr(item));
-		return dao.insert(item);
+		dao.insert(item);
+		Long id=dao.selectLast();
+		item.setId(id);
+		redisService.set("cart"+id, JSONUtil.toJsonStr(item));
+		return id.intValue();
 	}
 
 	@Override

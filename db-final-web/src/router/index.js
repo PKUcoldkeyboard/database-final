@@ -26,21 +26,21 @@ const routes = [{
         path: '/store',
         component: () => import('@/views/layout/Layout'),
         children: [
-        {
+/*        {
             path: 'bestSeller',
             name: 'bestSeller',
             component: () => import('@/views/bestSeller')
-        },
+        },*/
         {
             path:'specials',
             name:'specials',
             component:()=>import('@/views/specials')
         },
-        {
+/*        {
             path:'dynamic',
             name:'dynamic',
             component:()=>import('@/views/dynamic')
-        },
+        },*/
         {
             path:'contact',
             name:'contact',

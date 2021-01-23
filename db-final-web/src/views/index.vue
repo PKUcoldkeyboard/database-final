@@ -106,6 +106,7 @@ export default {
         },
         handleSearchList() {
             this.pageNum = 1;
+            this.sort = "按相关度排序";
             this.getList();
         },
         handleCategoryChange(categoryName) {

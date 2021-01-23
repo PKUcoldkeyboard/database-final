@@ -20,7 +20,7 @@
                     <div class="header">
                         <div class="headerLogo">
                             <router-link to="/store/index">
-                                <span>Qsinghua University</span>
+                                <span>Ordinary Bookstore</span>
                             </router-link>
                         </div>
                         <div class="tabWrap">
@@ -31,12 +31,12 @@
                                 <a-menu-item key="/store/specials">
                                     <router-link to="/store/specials">每日特价</router-link>
                                 </a-menu-item>
-                                <a-menu-item key="/store/bestSeller">
+<!--                                 <a-menu-item key="/store/bestSeller">
                                     <router-link to="/store/bestSeller">畅销榜</router-link>
-                                </a-menu-item>
-                                <a-menu-item key="/store/dynamic">
+                                </a-menu-item> -->
+<!--                                 <a-menu-item key="/store/dynamic">
                                     <router-link to="/store/dynamic">动态</router-link>
-                                </a-menu-item>
+                                </a-menu-item> -->
                                 <a-menu-item key="/store/contact">
                                     <router-link to="/store/contact">联系我们</router-link>
                                 </a-menu-item>

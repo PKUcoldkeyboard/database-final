@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface OrderDAO extends MyBatisBaseDao<Order, Long> {
 	List<Order>selectAll();
 	Order selectByOrderId(String orderId);
+	Long selectLast();
 }

@@ -25,8 +25,11 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public int insert(Order order) {
-		service.set("order"+order.getId(), JSONUtil.toJsonStr(order));
-		return dao.insert(order);
+		dao.insert(order);
+		Long id=dao.selectLast();
+		order.setId(id);
+		service.set("order"+id, JSONUtil.toJsonStr(order));
+		return id.intValue();
 	}
 
 	@Override
