@@ -1,6 +1,5 @@
 package com.cuterwrite.dbfinal.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**  

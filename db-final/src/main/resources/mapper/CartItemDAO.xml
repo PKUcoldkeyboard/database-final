@@ -10,13 +10,31 @@
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
   </resultMap>
+  <resultMap id="BookAndCart" type="com.cuterwrite.dbfinal.entity.BookAndCart">
+  	<id column="id" jdbcType="BIGINT" property="id" />
+  	<result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="picture" jdbcType="VARCHAR" property="picture"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, book_id, quantity, price, create_time, modify_time, user_id
   </sql>
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BookAndCart">
   	select
-  	<include refid="Base_Column_List" />
-    from oms_cart_item
+  	oms_cart_item.id,book_id,quantity,oms_cart_item.price,oms_cart_item.create_time,name,picture,user_id
+    from oms_cart_item,bms_book
+    where oms_cart_item.book_id=bms_book.id
+  </select>
+  <select id="selectOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select
+  	oms_cart_item.id,book_id,quantity,oms_cart_item.price,oms_cart_item.create_time,name,picture,user_id
+    from oms_cart_item,bms_book
+    where oms_cart_item.book_id=bms_book.id
+    and oms_cart_item.id=#{id,jdbcType=BIGINT}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cuterwrite.dbfinal.common.ResponseResult;
+import com.cuterwrite.dbfinal.entity.BookAndCart;
 import com.cuterwrite.dbfinal.entity.CartItem;
 import com.cuterwrite.dbfinal.service.CartService;
 import com.cuterwrite.dbfinal.util.Page;
@@ -36,7 +37,7 @@ public class CartController {
 	@GetMapping("/item")
 	public ResponseResult findItemList(@RequestParam Integer pageNum,
 									   @RequestParam Integer pageSize) {
-		Page<CartItem>cartList=cartService.list(pageNum, pageSize);
+		Page<BookAndCart>cartList=cartService.list(pageNum, pageSize);
 		Map<String,Object>map=BeanUtil.beanToMap(cartList);
 		return ResponseResult.ok().data(map);
 	}
@@ -45,8 +46,8 @@ public class CartController {
 	 */
 	@GetMapping("/item/query/{id}")
 	public ResponseResult findItemOne(@PathVariable("id") Long id) {
-		CartItem cartItem=cartService.select(id);
-		Map<String, Object>map=BeanUtil.beanToMap(cartItem);
+		BookAndCart cart=cartService.select(id);
+		Map<String, Object>map=BeanUtil.beanToMap(cart);
 		return ResponseResult.ok().data(map);
 	}
 	/**

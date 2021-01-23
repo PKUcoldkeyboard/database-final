@@ -1,5 +1,6 @@
 package com.cuterwrite.dbfinal.dao;
 
+import com.cuterwrite.dbfinal.entity.BookAndCart;
 import com.cuterwrite.dbfinal.entity.CartItem;
 
 import java.util.List;
@@ -11,5 +12,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CartItemDAO extends MyBatisBaseDao<CartItem, Long> {
-	List<CartItem>selectAll();
+	List<BookAndCart>selectAll();
+	BookAndCart selectOne(Long id);
 }

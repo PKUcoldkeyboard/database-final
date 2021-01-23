@@ -2,6 +2,7 @@ package com.cuterwrite.dbfinal.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cuterwrite.dbfinal.entity.BookAndCart;
 import com.cuterwrite.dbfinal.entity.CartItem;
 import com.cuterwrite.dbfinal.util.Page;
 
@@ -24,7 +25,7 @@ public interface CartService {
 	/**
 	 * 分页查询购物车
 	 */
-	Page<CartItem>list(Integer pageNum,Integer pageSize);
+	Page<BookAndCart>list(Integer pageNum,Integer pageSize);
 	/**
 	 * 删除购物车项
 	 */
@@ -34,6 +35,6 @@ public interface CartService {
 	/**
 	 * 查询购物车项
 	 */
-	CartItem select(Long id);
+	BookAndCart select(Long id);
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cuterwrite.dbfinal.dao.CartItemDAO;
+import com.cuterwrite.dbfinal.entity.BookAndCart;
 import com.cuterwrite.dbfinal.entity.CartItem;
 import com.cuterwrite.dbfinal.service.CartService;
 import com.cuterwrite.dbfinal.service.RedisService;
@@ -38,9 +39,9 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Page<CartItem> list(Integer pageNum, Integer pageSize) {
+	public Page<BookAndCart> list(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum,pageSize);
-		List<CartItem>itemList=dao.selectAll();
+		List<BookAndCart>itemList=dao.selectAll();
 		return Page.restPage(itemList);
 	}
 
@@ -51,13 +52,13 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public CartItem select(Long id) {
+	public BookAndCart select(Long id) {
 		//先从缓存取数据
 		String value=redisService.get("cart"+id);
 		if(value!=null) {
-			return JSONUtil.toBean(value,CartItem.class);
+			return JSONUtil.toBean(value,BookAndCart.class);
 		}
-		CartItem item=dao.selectByPrimaryKey(id);
+		BookAndCart item=dao.selectOne(id);
 		redisService.set("cart"+id, JSONUtil.toJsonStr(item));
 		return item;
 	}
