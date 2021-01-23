@@ -12,7 +12,6 @@
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="sale" jdbcType="INTEGER" property="sale" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
-    <result column="album_picture" jdbcType="VARCHAR" property="albumPicture" />
     <result column="isbn" jdbcType="CHAR" property="isbn" />
     <result column="author" jdbcType="VARCHAR" property="author" />
     <result column="press" jdbcType="VARCHAR" property="press" />
@@ -22,8 +21,13 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, `name`, create_time, modify_time, category_id, description, picture, price, sale, 
-    stock, album_picture, isbn, author, press, `language`, page_count, publish_date
+    stock, isbn, author, press, `language`, page_count, publish_date
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from bms_book
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -38,15 +42,15 @@
     insert into bms_book (id, `name`, create_time, 
       modify_time, category_id, description, 
       picture, price, sale, 
-      stock, album_picture, isbn, 
-      author, press, `language`, 
-      page_count, publish_date)
+      stock, isbn, author, press, 
+      `language`, page_count, publish_date
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP}, #{categoryId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, 
       #{picture,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{sale,jdbcType=INTEGER}, 
-      #{stock,jdbcType=INTEGER}, #{albumPicture,jdbcType=VARCHAR}, #{isbn,jdbcType=CHAR}, 
-      #{author,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
-      #{pageCount,jdbcType=INTEGER}, #{publishDate,jdbcType=TIMESTAMP})
+      #{stock,jdbcType=INTEGER}, #{isbn,jdbcType=CHAR}, #{author,jdbcType=VARCHAR}, #{press,jdbcType=VARCHAR}, 
+      #{language,jdbcType=VARCHAR}, #{pageCount,jdbcType=INTEGER}, #{publishDate,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.Book">
     insert into bms_book
@@ -80,9 +84,6 @@
       </if>
       <if test="stock != null">
         stock,
-      </if>
-      <if test="albumPicture != null">
-        album_picture,
       </if>
       <if test="isbn != null">
         isbn,
@@ -134,9 +135,6 @@
       <if test="stock != null">
         #{stock,jdbcType=INTEGER},
       </if>
-      <if test="albumPicture != null">
-        #{albumPicture,jdbcType=VARCHAR},
-      </if>
       <if test="isbn != null">
         #{isbn,jdbcType=CHAR},
       </if>
@@ -187,9 +185,6 @@
       <if test="stock != null">
         stock = #{stock,jdbcType=INTEGER},
       </if>
-      <if test="albumPicture != null">
-        album_picture = #{albumPicture,jdbcType=VARCHAR},
-      </if>
       <if test="isbn != null">
         isbn = #{isbn,jdbcType=CHAR},
       </if>
@@ -222,7 +217,6 @@
       price = #{price,jdbcType=DECIMAL},
       sale = #{sale,jdbcType=INTEGER},
       stock = #{stock,jdbcType=INTEGER},
-      album_picture = #{albumPicture,jdbcType=VARCHAR},
       isbn = #{isbn,jdbcType=CHAR},
       author = #{author,jdbcType=VARCHAR},
       press = #{press,jdbcType=VARCHAR},

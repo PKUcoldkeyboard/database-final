@@ -10,15 +10,18 @@
             </a-breadcrumb-item>
         </a-breadcrumb>
         <a-divider></a-divider>
+        
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-
-        }
-    }
+            }
+    },
+    methods:{
+        
+    },
 }
 </script>
 <style scope>

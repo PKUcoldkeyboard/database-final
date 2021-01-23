@@ -1,6 +1,9 @@
 package com.cuterwrite.dbfinal.dao;
 
 import com.cuterwrite.dbfinal.entity.Book;
+
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BookDAO extends MyBatisBaseDao<Book, Long> {
+	List<Book> selectAll();
 }

@@ -6,7 +6,7 @@ import {message,Modal} from 'ant-design-vue'
 //创建axios实例
 axios.defaults.withCredentials=true
 const service=axios.create({
-	baseURL:'http://39.107.230.124:7777',
+	baseURL:'http://localhost:7777',
 	timeout:15000 //请求超时时间
 })
 

@@ -13,6 +13,11 @@
   <sql id="Base_Column_List">
     id, book_id, quantity, price, create_time, modify_time, user_id
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from oms_cart_item
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
