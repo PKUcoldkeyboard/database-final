@@ -23,7 +23,10 @@ import com.cuterwrite.dbfinal.entity.User;
 import com.cuterwrite.dbfinal.entity.UserEmail;
 import com.cuterwrite.dbfinal.exception.CMSException;
 import com.cuterwrite.dbfinal.service.AuthService;
+import com.cuterwrite.dbfinal.service.RedisService;
 import com.cuterwrite.dbfinal.util.JwtTokenUtil;
+
+import cn.hutool.json.JSONUtil;
 
 /**  
  * @author Pang S.Z.
@@ -47,6 +50,9 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private UserEmailDAO userEmailDao;
 	
+	@Autowired
+	private RedisService redisService;
+	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public User register(User userToAdd,String email) {
@@ -57,6 +63,7 @@ public class AuthServiceImpl implements AuthService {
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		final String rawPassword=userToAdd.getPassword();
 		userToAdd.setPassword(encoder.encode(rawPassword));
+		redisService.set(username, JSONUtil.toJsonStr(userToAdd));
 		userDao.insert(userToAdd);
 		userDao.insertUserRole(userToAdd);
 
@@ -101,6 +108,7 @@ public class AuthServiceImpl implements AuthService {
 		}else {
 			String newPassword=encoder.encode(changePwdParam.getNewPassword());
 			user.setPassword(newPassword);
+			redisService.set(username, JSONUtil.toJsonStr(user));
 			userDao.update(user);
 		}
 		return user;
@@ -115,6 +123,7 @@ public class AuthServiceImpl implements AuthService {
 		}
 		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(param.getNewPassword()));
+		redisService.set(username, JSONUtil.toJsonStr(user));
 		userDao.update(user);
 	}
 

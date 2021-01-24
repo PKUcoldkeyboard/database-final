@@ -18,6 +18,12 @@
     id, user_id, receiver_name, phone_number, post_code, province, city, region, detail_address, 
     create_time, modify_time
   </sql>
+  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from ums_user_receive_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

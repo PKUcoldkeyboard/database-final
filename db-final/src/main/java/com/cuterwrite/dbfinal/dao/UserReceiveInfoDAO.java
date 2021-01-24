@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserReceiveInfoDAO extends MyBatisBaseDao<UserReceiveInfo, Long> {
+	UserReceiveInfo selectByUserId(Long userId);
 }
