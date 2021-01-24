@@ -27,11 +27,18 @@ public interface BookSearchService {
 	 * 批量删除
 	 */
 	void deleteBatch(Long[]ids);
-	
+	/**
+	 * 删除全部
+	 */
 	void deleteAll();
+	/**
+	 *更新
+	 */
+	void update(Long id);
 	
 	/**
 	 * 全文搜索
 	 */
 	Page<EsBook>search(String keyword,String categoryName,Integer pageNum, Integer pageSize,Integer sort);
+	
 }

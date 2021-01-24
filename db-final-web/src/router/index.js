@@ -72,6 +72,11 @@ const routes = [{
             name:'order',
             component:()=>import('@/views/order')
         },
+        {
+            path:'steps',
+            name:'steps',
+            component:()=>import('@/views/a-steps')
+        }
         ]
     }
 ]

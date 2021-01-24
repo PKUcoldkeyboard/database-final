@@ -3,6 +3,7 @@ package com.cuterwrite.dbfinal.service.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
@@ -30,6 +31,7 @@ import com.cuterwrite.dbfinal.elasticsearch.BookRepository;
 import com.cuterwrite.dbfinal.entity.Book;
 import com.cuterwrite.dbfinal.entity.EsBook;
 import com.cuterwrite.dbfinal.service.BookSearchService;
+import com.cuterwrite.dbfinal.service.BookService;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -50,6 +52,8 @@ public class BookSearchServiceImpl implements BookSearchService{
 	ElasticsearchRestTemplate elasticsearchRestTemplate;
 	@Autowired
 	BookRepository repository;
+	@Autowired
+	BookService bookService;
 
 	@Override
 	public int importAll() {
@@ -185,6 +189,26 @@ public class BookSearchServiceImpl implements BookSearchService{
 		return new PageImpl<>(searchBookList,pageable,searchHits.getTotalHits());
 	}
 
+	@Override
+	public void update(Long id) {
+		//先找到es中的图书
+		Optional<EsBook> esBook=repository.findById(id);
+		EsBook origin=esBook.get();
+		//查询图书
+		Book book=bookService.select(id);
+		origin.setAuthor(book.getAuthor());
+		origin.setBookName(book.getName());
+		origin.setDescription(book.getDescription());
+		origin.setPic(book.getPicture());
+		origin.setIsbn(book.getIsbn());
+		origin.setPress(book.getPress());
+		origin.setPublishDate(book.getPublishDate());
+		origin.setSale(book.getSale());
+		origin.setPrice(book.getPrice());
+		Long category=book.getCategoryId();
+		String categoryName=categoryDAO.selectByPrimaryKey(category).getName();
+		origin.setCategoryName(categoryName);
+		repository.save(origin);
+	}
 	
-
 }

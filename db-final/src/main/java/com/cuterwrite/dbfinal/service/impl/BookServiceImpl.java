@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cuterwrite.dbfinal.dao.BookDAO;
 import com.cuterwrite.dbfinal.entity.Book;
-
+import com.cuterwrite.dbfinal.service.BookSearchService;
 import com.cuterwrite.dbfinal.service.BookService;
 import com.cuterwrite.dbfinal.service.RedisService;
 import com.cuterwrite.dbfinal.util.Page;
@@ -25,17 +25,22 @@ public class BookServiceImpl implements BookService{
 	BookDAO dao;
 	@Autowired
 	RedisService redisService;
+	@Autowired
+	BookSearchService bookSearchService;
 	
 	@Override
 	public int insert(Book book) {
 		redisService.set("book"+book.getId(), JSONUtil.toJsonStr(book));
+		bookSearchService.create(book.getId());
 		return dao.insert(book);
 	}
 
 	@Override
 	public int update(Long id, Book book) {
-		redisService.set("book"+id, JSONUtil.toJsonStr(book));
-		return dao.updateByPrimaryKey(book);
+		redisService.set("book"+id, JSONUtil.toJsonStr(book));		
+		int value= dao.updateByPrimaryKey(book);
+		bookSearchService.update(id);
+		return value;
 	}
 
 	@Override
@@ -53,6 +58,7 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public int delete(Long id) {
 		redisService.remove("book"+id);
+		bookSearchService.delete(id);
 		return dao.deleteByPrimaryKey(id);
 	}
 
