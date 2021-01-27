@@ -23,6 +23,10 @@ const routes = [{
         redirect:'/store/index'
     },
     {
+        path:'/404',
+        component:()=>import('@/views/404')
+    },
+    {
         path: '/store',
         component: () => import('@/views/layout/Layout'),
         children: [
@@ -78,6 +82,10 @@ const routes = [{
             component:()=>import('@/views/a-steps')
         }
         ]
+    },
+    {
+        path:'*',
+        redirect:'/404'
     }
 ]
 
