@@ -6,9 +6,6 @@
 						  ref="registerForm"
 						  label-position="left"
 						  autoComplete="on">
-				<div style="text-align: center;">
-					<img src='@/assets/logo.png' style="width: 56px;height: 56px;">
-				</div>
 				<h2 class="login-title">注册</h2>
 				<a-form-model-item has-feedback prop="username">
 					<a-input type="text"
@@ -37,6 +34,24 @@
 						<a-icon slot="suffix" type="eye" style="color:rgba(0,0,0,.25)" @click="showNewPwd"/>
 					</a-input>
 				</a-form-model-item>
+				<a-form-model-item has-feedback prop="email">
+					<a-input type="text"
+							 placeholder="请输入邮箱地址"
+							 v-model="registerForm.email"
+							 autoComplete="on">
+						<a-icon slot="prefix" type="mail" style="color:rgba(0,0,0,.25)"/>
+					</a-input>
+				</a-form-model-item>
+				<a-form-model-item has-feedback prop="code">
+					<a-input type="text"
+							 placeholder="请输入邮箱验证码"
+							 v-model="registerForm.code"
+							 autoComplete="on">
+						<a-icon slot="prefix" type="codepen" style="color:rgba(0,0,0,.25)"/>
+						<!--实际场景要设置按钮禁用，防止多次点击，这里简单起见就不设置了-->
+						<a-button slot="suffix" type="link" style="color:#564695 !important" @click.native.prevent="sendEmail">获取验证码</a-button>
+					</a-input>
+				</a-form-model-item>
 				<a-form-model-item style="margin-bottom: 60px;text-align: center;">
 					<a-button type="primary" :loading="loading" @click.native.prevent="handleRegister"
 							  style="width: 100%">
@@ -52,8 +67,8 @@
 </template>
 
 <script>
-import {validUsername,validPassword} from '@/utils/validate'
-import {register} from '@/api/login'
+import {validUsername,validPassword,validEmail} from '@/utils/validate'
+import {register,verify} from '@/api/login'
 import {setCookie} from '@/utils/support'
 export default{
 	name:'register',
@@ -75,20 +90,41 @@ export default{
 		const samePassword=(rule,value,callback)=>{
 			if(value!=this.registerForm.oldPassword){
 				callback(new Error('两次输入的密码不一致'))
+			}else if(value===''){
+				callback(new Error('密码为同时含有大小写字母、数字的8-16位组合'))
+			}else{
+				callback()
+			}
+		};
+		const validateEmail=(rule,value,callback)=>{
+			if(!validEmail(value)){
+				callback(new Error('请输入正确的邮箱地址'))
+			}else{
+				callback()
+			}
+		};
+		const validateCode=(rule,value,callback)=>{
+			if(value.length!=6){
+				callback(new Error('请输入6位验证码'))
 			}else{
 				callback()
 			}
 		};
 		return{
+			receiver:'',
 			registerForm:{
 				username:'',
 				oldPassword:'',
 				newPassword:'',
+				email:'',
+				code:'',
 			},
 			registerRules:{
 				username:[{required:true,trigger:'blur',validator:validateUsername}],
 				oldPassword:[{required:true,trigger:'blur',validator:validatePassword}],
-				newPassword:[{required:true,trigger:'blur',validator:samePassword}]
+				newPassword:[{required:true,trigger:'blur',validator:samePassword}],
+				email:[{required:true,trigger:'blur',validator:validateEmail}],
+				code:[{required:true,trigger:'blur',validator:validateCode}],
 			},
 			loading:false,
 			oldPwdType:'password',
@@ -110,12 +146,34 @@ export default{
 				this.newPwdType='password'
 			}
 		},
+		sendEmail(){
+			if(validEmail(this.registerForm.email)){
+				new Promise((resolve,reject)=>{
+					verify(this.registerForm.email)
+					.then(()=>{
+						resolve()
+					}).catch(error=>{
+						reject(error)
+					})
+				}).then(()=>{
+					this.$message.success({
+						content:'发送邮件成功',
+						duration:3,
+					})
+				})
+			}else{
+				this.$message.error({
+					content:'请先输入正确的邮箱地址',
+					duration:3,
+				})
+			}
+		},
 		handleRegister(){
 			this.$refs.registerForm.validate(valid=>{
 				if(valid){
 					this.loading=true;
 					new Promise((resolve,reject)=>{
-						register(this.registerForm.username,this.registerForm.oldPassword)
+						register(this.registerForm.username,this.registerForm.oldPassword,this.registerForm.code,this.registerForm.email)
 						.then(()=>{
 							resolve()
 						}).catch(error=>{
@@ -133,7 +191,6 @@ export default{
 						this.loading=false;
 					})
 				}else{
-					console.log('参数验证不合法');
 					return false;
 				}
 			})
@@ -151,19 +208,13 @@ export default{
 		left: 0;
 		right: 0;
 		width:360px;
-		margin: 140px auto;
+		margin: 80px auto;
+		border-radius: 20px;
+		box-shadow: 3px 3px 6px rgba(0,0,0,.08);
 	}
 	.login-title{
 		text-align: center;
 	}	
-	.login-center-layout{
-		background: #409EFF;
-	    width: auto;
-	    height: auto;
-	    max-width: 100%;
-	    max-height: 100%;
-	    margin-top: 200px;
-	}
 	.login-form-forget{
 		float: right;
 	}

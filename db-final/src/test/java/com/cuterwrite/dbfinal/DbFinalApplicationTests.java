@@ -2,13 +2,21 @@ package com.cuterwrite.dbfinal;
 
 
 
+
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 
-import com.cuterwrite.dbfinal.service.Neo4jService;
+import com.cuterwrite.dbfinal.common.ResponseResult;
+import com.cuterwrite.dbfinal.entity.EsBook;
+import com.cuterwrite.dbfinal.service.BookSearchService;
 
-import cn.hutool.http.HttpUtil;
+import cn.hutool.core.bean.BeanUtil;
+
+
 
 
 
@@ -16,10 +24,11 @@ import cn.hutool.http.HttpUtil;
 
 @SpringBootTest
 class DbFinalApplicationTests {
-	
+	@Autowired
+	BookSearchService service;
 	@Test
 	void contextLoads() {
-		HttpUtil.get("https://sc.ftqq.com/SCU131539T7e6c5576ee0d756dc308a320937a50045fc5ace7252a3.send?text=谢源，阿囊死给&desp=");
+
 	}
 
 }

@@ -1,166 +1,245 @@
 <template>
-	<a-config-provider :locale="locale">
-	<div class="app-wrapper">
-		<a-layout>
-			<a-layout-header class="header">
-				<div style="width: 1136px;margin-left: auto;margin-right: auto;">
-					<a-row :gutter="[16,16]">
-						<a-col :span="8">
-						</a-col>
-						<a-col :span="8">
-							<a-input-search></a-input-search>
-						</a-col>
-						<a-col :span="6">
-						</a-col>
-						<a-col :span="2">
-							<a-dropdown>
-								<a-menu slot="overlay">
-									<a-menu-item key="1">
-										<router-link to="/login">登录
-										</router-link>
-									</a-menu-item>
-									<a-menu-item key="2">
-										<router-link to="/register">注册
-										</router-link>
-									</a-menu-item>
-								</a-menu>
-								<a-button style="margin-top:16px;">
-									<a-icon type="user"/>
-									<span>登录/注册</span>
-								</a-button>
-							</a-dropdown>
-						</a-col>
-					</a-row>
-				</div>
-			</a-layout-header>
-			<a-layout-header class="navbar">
-				<a-menu
-					mode="horizontal"
-					:style="{width:'720px',marginLeft:'auto',marginRight:'auto',marginTop:'16px',background:'#ffffff'}">
-					<a-sub-menu>
-						<span slot="title">全部商品分类</span>
-						<a-menu-item key="8">
-							option1
-						</a-menu-item>
-						<a-menu-item key="9">
-							option2
-						</a-menu-item>
-					</a-sub-menu>
-					<a-menu-item key="1">
-						首页
-					</a-menu-item>
-					<a-menu-item key="2">
-						理学类
-					</a-menu-item>
-					<a-menu-item key="3">
-						工学类
-					</a-menu-item>
-					<a-menu-item key="4">
-						医学类
-					</a-menu-item>
-					<a-menu-item key="5">
-						经济学类
-					</a-menu-item>
-					<a-menu-item key="6">
-						管理学类
-					</a-menu-item>
-					<a-menu-item key="7">
-						文学类
-					</a-menu-item>
-				</a-menu>
-			</a-layout-header>
-			<a-layout-header class="banner">
-				<div class="inner-page-heading">
-					<h2>Shop</h2>
-					<p>Spanning fifteen years of work, Everywhere I look is a book full of unexpected moments.</p>
-				</div>
-			</a-layout-header>
-			<a-layout-content><app-main></app-main></a-layout-content>
-			<a-layout-footer style="text-align: center;">
-				Copyright @ 2020 Shangzhi Pang. All Rights Reserved.<br/>
-				Licensed under <b>MIT License</b>.
-			</a-layout-footer>
-		</a-layout>
-	</div>
-	</a-config-provider>
+    <a-config-provider :locale="locale">
+        <div class="index">
+            <a-layout>
+                <a-affix :offset-top="0">
+                    <div class="topBar">
+                        <div class="flex-spacer"></div>
+                        <div style="width:33%"><a target="_blank" href="https://github.com/PKUcoldkeyboard/database-final">This project is open source, you can learn more about our project in Github.</a>
+                        </div>
+                        <div class="webTool">
+                            <router-link to="/store/cart">
+                                <a-icon type="shopping-cart" />
+                                购物车
+                            </router-link>
+                            <router-link to="/store/order">我的订单</router-link>
+                            <router-link to="/store/center">个人中心</router-link>
+                            <router-link to="/store/help">帮助中心</router-link>
+                        </div>
+                    </div>
+                    <div class="header">
+                        <div class="headerLogo">
+                            <router-link to="/store/index">
+                                <span>Ordinary Bookstore</span>
+                            </router-link>
+                        </div>
+                        <div class="tabWrap">
+                            <a-menu mode="horizontal" :selectedKeys="[this.$route.path]">
+                                <a-menu-item key="/store/index">
+                                    <router-link to="/store/index">首页</router-link>
+                                </a-menu-item>
+                                <a-menu-item key="/store/specials">
+                                    <router-link to="/store/specials">每日特价</router-link>
+                                </a-menu-item>
+<!--                                 <a-menu-item key="/store/bestSeller">
+                                    <router-link to="/store/bestSeller">畅销榜</router-link>
+                                </a-menu-item> -->
+<!--                                 <a-menu-item key="/store/dynamic">
+                                    <router-link to="/store/dynamic">动态</router-link>
+                                </a-menu-item> -->
+                                <a-menu-item key="/store/contact">
+                                    <router-link to="/store/contact">联系我们</router-link>
+                                </a-menu-item>
+                            </a-menu>
+                        </div>
+                        <div class="login-register">
+                            <a-button v-if="login_status===false" type="link" class="login-btn" @click.native.prevent="handleLogin">登录</a-button>
+                            <a-button v-else type="link" class="login-btn" @click.native.prevent="handleLogout">登出</a-button>
+                            <a-button type="primary" class="register-btn" @click.native.prevent="handleRegister">注册</a-button>
+                        </div>
+                    </div>
+                </a-affix>
+                <a-layout-content class="content">
+                    <app-main></app-main>
+                </a-layout-content>
+                <a-layout-footer class="footer">
+                    版权所有 北京大学数据库小组
+                </a-layout-footer>
+            </a-layout>
+        </div>
+    </a-config-provider>
 </template>
-
 <script>
-import {AppMain} from './components'
+import { AppMain } from './components'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
-export default{
-	name:'layout',
-	components:{
-		AppMain
-	},
-	data(){
-		return{
-			locale:zhCN,
-		}
-	}
+export default {
+    name: 'layout2',
+    components: {
+        AppMain
+    },
+    data() {
+        return {
+            locale: zhCN,
+            login_status: false,
+        }
+    },
+    created() {
+        if (this.$store.state.user.token) {
+            this.login_status = true;
+        }
+    },
+    methods: {
+        handleLogin() {
+            this.$router.push({ path: '/login' })
+        },
+        handleRegister() {
+            this.$router.push({ path: '/register' })
+        },
+        handleLogout() {
+            this.$store.dispatch('Logout').then(() => {
+                alert('登出成功!')
+            });
+        }
+    },
+    computed: {
+        token() {
+            return this.$store.state.user.token;
+        }
+    },
+    watch: {
+        token(val) {
+            if (this.login_status) {
+                this.login_status = false;
+            } else {
+                this.login_status = true;
+            }
+        }
+    }
 }
 </script>
-
 <style scope>
-	.app-wrapper{
-		position:relative;
-		height:100%;
-		width:100%;
-	}
-	.app-wrapper .ant-layout{
-		background: #ffffff;
-	}
-	.app-wrapper .header{
-		background: rgb(30,41,61);
-		height:64px;
-		width:100%;
-		margin-bottom:;
-	}
-	.app-wrapper .banner{
-		height: 300px;
-		width: 100%;
-		background: rgb(70,60,47);
-		margin-bottom:16px;
-	}
-	.app-wrapper .navbar{
-		background: #ffffff;
-		height: 80px;
-		width:100%;
-		margin-bottom: 0px;
-	}
-	.app-wrapper .navbar .logo{
-		margin-left:392px;
-		width:auto;
-		height: 48px;
-		float: left;
-	}
-	.app-wrapper .ant-layout-content{
-		background: #ffffff;
-		margin-left: auto;
-		margin-right: auto;
-		min-height: 640px;
-		width:1136px;
-	}
-	.app-wrapper .ant-layout-footer{
-		margin-top: 16px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 100%;
-		min-height: 48px;
-		background: #ffffff;
-	}
-	.inner-page-heading{
-		text-align: center;
-		margin-top:72px;
-	}
-	.inner-page-heading h2{
-		color:#fff;
-		margin:0;
-		font-size:36px;
-		font-weight: bold;
-	}
-	.inner-page-heading p{
-		color:#fff;
-		margin: 0;
-	}
+html {
+    line-height: 1.15;
+    /* Correct the line height in all browsers */
+    -webkit-text-size-adjust: 100%;
+    /* Prevent adjustments of font size after orientation changes in iOS. */
+}
+
+body {
+    margin: 0;
+}
+
+a {
+    background-color: transparent;
+    /* Remove the gray background on active links in IE 10. */
+}
+
+img {
+    border-style: none;
+    /*  Remove the border on images inside links in IE 10. */
+}
+
+.index .ant-layout {
+    background: #ffffff;
+}
+
+.topBar {
+    width: 100%;
+    height: 40px;
+    background: #564695;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.webTool {
+    display: flex;
+    justify-content: center;
+    width: 33%;
+}
+
+.webTool a {
+    padding: 10px;
+}
+
+.topBar .flex-spacer {
+    width: 33%;
+}
+
+.topBar a {
+    color: #fff !important;
+}
+
+.ant-btn-link {
+    color: #ffffff !important;
+}
+
+.header {
+    width: 100%;
+    height: 64px;
+    background: #ffffff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .08);
+    display: flex;
+}
+
+.login-register {
+    display: flex;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabWrap {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.login-btn {
+    margin-right: 2%;
+    color: #564695 !important;
+}
+
+.headerLogo {
+    width: 25%;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 1.25rem 0 1.875rem;
+    display: flex;
+}
+
+.ant-menu-item {
+    font-size: 16px !important;
+    font-weight: 500;
+    line-height: 60px;
+    margin: 0 5px;
+    border-bottom: 4px solid #ffffff !important;
+}
+
+.ant-menu-item-selected {
+    color: rgb(50, 57, 62) !important;
+    border-bottom: 4px solid #564695 !important;
+}
+
+.ant-menu-item-active {
+    background-color: #fff !important;
+    color: rgb(50, 57, 62) !important;
+}
+
+.ant-menu-item a {
+    color: rgb(50, 57, 62) !important;
+}
+
+.content {
+    width: 1200px;
+    margin-top: 64px;
+    margin-bottom: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 440px;
+    color: black;
+}
+
+.footer {
+    background: #fff;
+    width: 100%;
+    bottom: 0;
+    height: 80px;
+    color: #484843;
+    text-align: center;
+    border-top: 1px solid #dcdcdc;
+}
 </style>

@@ -3,9 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-/*Layout */
-import Layout from '@/views/layout/Layout'
-
 const routes = [{
         path: '/login',
         name: 'login',
@@ -17,44 +14,78 @@ const routes = [{
         component: () => import('@/views/register/index')
     },
     {
-        path: '',
-        component: Layout,
-        redirect: '/home',
-        children: [{
-            path: 'home',
-            name: 'home',
-            component: () => import('@/views/home/index'),
-            meta: { title: '首页', icon: 'home' }
-        }]
+        path:'/findPwd',
+        name:'findPwd',
+        component:()=>import('@/views/findPwd/index')
     },
     {
-        path: '/index',
-        component: () => import('@/views/layout/Layout2'),
-        children: [{
-            path: 'suggest',
-            name: 'suggest',
-            component: () => import('@/views/suggest/index')
-        },
+        path:'',
+        redirect:'/store/index'
+    },
+    {
+        path:'/404',
+        component:()=>import('@/views/404')
+    },
+    {
+        path: '/store',
+        component: () => import('@/views/layout/Layout'),
+        children: [
+/*        {
+            path: 'bestSeller',
+            name: 'bestSeller',
+            component: () => import('@/views/bestSeller')
+        },*/
         {
-            path:'reserve',
-            name:'reserve',
-            component:()=>import('@/views/reserve')
+            path:'specials',
+            name:'specials',
+            component:()=>import('@/views/specials')
         },
-        {
-            path:'map',
-            name:'map',
-            component:()=>import('@/views/map')
-        },
+/*        {
+            path:'dynamic',
+            name:'dynamic',
+            component:()=>import('@/views/dynamic')
+        },*/
         {
             path:'contact',
             name:'contact',
             component:()=>import('@/views/contact')
         },
         {
-            path:'head',
-            name:'head',
-            component:()=>import('@/views/head')
-        }]
+            path:'index',
+            name:'index',
+            component:()=>import('@/views/index')
+        },
+        {
+            path:'cart',
+            name:'cart',
+            component:()=>import('@/views/cart')
+        }
+        ,
+        {
+            path:'help',
+            name:'help',
+            component:()=>import('@/views/help')
+        },
+        {
+            path:'center',
+            name:'center',
+            component:()=>import('@/views/center')
+        },
+        {
+            path:'order',
+            name:'order',
+            component:()=>import('@/views/order')
+        },
+        {
+            path:'steps',
+            name:'steps',
+            component:()=>import('@/views/a-steps')
+        }
+        ]
+    },
+    {
+        path:'*',
+        redirect:'/404'
     }
 ]
 

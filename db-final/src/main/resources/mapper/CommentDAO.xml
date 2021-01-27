@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.CommentDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.Comment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="star" jdbcType="INTEGER" property="star" />
+    <result column="read_count" jdbcType="INTEGER" property="readCount" />
+    <result column="collect_count" jdbcType="INTEGER" property="collectCount" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="reply_count" jdbcType="INTEGER" property="replyCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="show_status" jdbcType="TINYINT" property="showStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_id, user_id, star, read_count, collect_count, picture, reply_count, create_time, 
+    modify_time, show_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bms_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bms_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.Comment">
+    insert into bms_comment (id, book_id, user_id, 
+      star, read_count, collect_count, 
+      picture, reply_count, create_time, 
+      modify_time, show_status)
+    values (#{id,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{star,jdbcType=INTEGER}, #{readCount,jdbcType=INTEGER}, #{collectCount,jdbcType=INTEGER}, 
+      #{picture,jdbcType=VARCHAR}, #{replyCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{showStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.Comment">
+    insert into bms_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="star != null">
+        star,
+      </if>
+      <if test="readCount != null">
+        read_count,
+      </if>
+      <if test="collectCount != null">
+        collect_count,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="replyCount != null">
+        reply_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="showStatus != null">
+        show_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="star != null">
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCount != null">
+        #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showStatus != null">
+        #{showStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.Comment">
+    update bms_comment
+    <set>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="star != null">
+        star = #{star,jdbcType=INTEGER},
+      </if>
+      <if test="readCount != null">
+        read_count = #{readCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        collect_count = #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCount != null">
+        reply_count = #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="showStatus != null">
+        show_status = #{showStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.Comment">
+    update bms_comment
+    set book_id = #{bookId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      star = #{star,jdbcType=INTEGER},
+      read_count = #{readCount,jdbcType=INTEGER},
+      collect_count = #{collectCount,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=VARCHAR},
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      show_status = #{showStatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

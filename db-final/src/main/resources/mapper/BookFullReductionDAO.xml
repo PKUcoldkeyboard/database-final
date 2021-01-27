@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.BookFullReductionDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.BookFullReduction">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="full_price" jdbcType="DECIMAL" property="fullPrice" />
+    <result column="reduce_price" jdbcType="DECIMAL" property="reducePrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_id, full_price, reduce_price, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bms_book_full_reduction
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bms_book_full_reduction
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.BookFullReduction" useGeneratedKeys="true">
+    insert into bms_book_full_reduction (book_id, full_price, reduce_price, 
+      create_time, modify_time)
+    values (#{bookId,jdbcType=BIGINT}, #{fullPrice,jdbcType=DECIMAL}, #{reducePrice,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cuterwrite.dbfinal.entity.BookFullReduction" useGeneratedKeys="true">
+    insert into bms_book_full_reduction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="fullPrice != null">
+        full_price,
+      </if>
+      <if test="reducePrice != null">
+        reduce_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="fullPrice != null">
+        #{fullPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reducePrice != null">
+        #{reducePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.BookFullReduction">
+    update bms_book_full_reduction
+    <set>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="fullPrice != null">
+        full_price = #{fullPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="reducePrice != null">
+        reduce_price = #{reducePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.BookFullReduction">
+    update bms_book_full_reduction
+    set book_id = #{bookId,jdbcType=BIGINT},
+      full_price = #{fullPrice,jdbcType=DECIMAL},
+      reduce_price = #{reducePrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

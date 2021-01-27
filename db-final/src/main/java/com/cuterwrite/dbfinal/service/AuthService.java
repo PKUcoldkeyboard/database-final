@@ -1,8 +1,8 @@
 package com.cuterwrite.dbfinal.service;
 
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cuterwrite.dbfinal.dto.ChangePwdParam;
+import com.cuterwrite.dbfinal.dto.FindPwdParam;
 import com.cuterwrite.dbfinal.entity.User;
 
 /**
@@ -18,8 +18,7 @@ public interface AuthService {
 	 * @param userToAdd
 	 * @return User
 	 */
-	@Transactional
-	User register(User userToAdd);
+	User register(User userToAdd,String email);
 	/**
 	 * 
 	 * @Description 登录
@@ -44,4 +43,10 @@ public interface AuthService {
 	 * @return 修改密码后的user
 	 */
 	User changePwd(ChangePwdParam changePwdParam);
+	/**
+	 * 
+	 * @Description 找回密码 
+	 * @param param
+	 */
+	void findPwd(FindPwdParam param);
 }

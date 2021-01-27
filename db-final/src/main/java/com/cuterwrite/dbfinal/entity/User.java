@@ -53,7 +53,7 @@ public class User implements Serializable, UserDetails{
     public void setId(Integer id) {
         this.id = id;
     }
-
+    @Override
     public String getUsername() {
         return username;
     }
@@ -61,7 +61,7 @@ public class User implements Serializable, UserDetails{
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @Override
     public String getPassword() {
         return password;
     }

@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
+	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception{
 		return super.authenticationManager();
 	}
@@ -59,11 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
+			.antMatchers(HttpMethod.POST,"/sendEmail").permitAll()
 			.antMatchers(HttpMethod.POST,"/auth/**").permitAll()
-			.antMatchers(HttpMethod.POST).authenticated()
-			.antMatchers(HttpMethod.PUT).authenticated()
-			.antMatchers(HttpMethod.DELETE).authenticated()
-			.antMatchers(HttpMethod.GET).authenticated()
+			.antMatchers(HttpMethod.POST).permitAll()//authenticated()
+			.antMatchers(HttpMethod.PUT).permitAll()//authenticated()
+			.antMatchers(HttpMethod.DELETE).permitAll()//authenticated()
+			.antMatchers(HttpMethod.GET).permitAll()//authenticated()
 			.antMatchers("/test").hasAnyRole("USER","ADMIN");	
 		//添加JWT filter
 		httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

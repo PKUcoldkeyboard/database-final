@@ -1,7 +1,9 @@
 package com.cuterwrite.dbfinal.exception;
 
+
 import java.util.stream.Collectors;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -38,6 +40,12 @@ public class GlobalExceptionHandler {
 		log.error(e.getMessage(),e);
 		return ResponseResult.error().message(e.getAllErrors().stream().map(ObjectError::getDefaultMessage)
 				.collect(Collectors.joining("，")));
+	}
+	@ExceptionHandler(DuplicateKeyException.class)
+	@ResponseBody
+	public ResponseResult error(DuplicateKeyException e) {
+		log.error(e.getMessage(),e);
+		return ResponseResult.error().message("已有相同记录");
 	}
 	@ExceptionHandler(NullPointerException.class)
 	@ResponseBody

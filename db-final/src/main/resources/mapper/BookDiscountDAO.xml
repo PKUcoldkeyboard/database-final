@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cuterwrite.dbfinal.dao.BookDiscountDAO">
+  <resultMap id="BaseResultMap" type="com.cuterwrite.dbfinal.entity.BookDiscount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="discount" jdbcType="DECIMAL" property="discount" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+  </resultMap>
+  <resultMap id="DiscountedBook" type="com.cuterwrite.dbfinal.entity.DiscountedBook">
+  	 <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="book_id" jdbcType="BIGINT" property="bookId" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="new_price" jdbcType="DECIMAL" property="newPrice"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="author" jdbcType="VARCHAR" property="author"/>
+    <result column="press" jdbcType="VARCHAR" property="press"/>
+    <result column="picture" jdbcType="VARCHAR" property="picture"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, book_id, `count`, discount, price, create_time, modify_time
+  </sql>
+  <select id="selectAll" resultMap="DiscountedBook">
+  	select bms_book_discount.id,book_id,bms_book_discount.price as new_price,bms_book.price as price,name,author,press,picture
+  	from bms_book_discount,bms_book
+  	where bms_book_discount.book_id=bms_book.id
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bms_book_discount
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bms_book_discount
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    insert into bms_book_discount (id, book_id, `count`, 
+      discount, price, create_time, 
+      modify_time)
+    values (#{id,jdbcType=BIGINT}, #{bookId,jdbcType=BIGINT}, #{count,jdbcType=INTEGER}, 
+      #{discount,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    insert into bms_book_discount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bookId != null">
+        #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    update bms_book_discount
+    <set>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cuterwrite.dbfinal.entity.BookDiscount">
+    update bms_book_discount
+    set book_id = #{bookId,jdbcType=BIGINT},
+      `count` = #{count,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
