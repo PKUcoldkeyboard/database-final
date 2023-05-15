@@ -14,20 +14,21 @@ import com.cuterwrite.dbfinal.entity.DiscountedBook;
 import com.cuterwrite.dbfinal.service.BookDiscountService;
 
 
-/**  
+/**
  * @author Pang S.Z.
- * @create 2021-01-23 17:12:02 
+ * @create 2021-01-23 17:12:02
  */
 @RequestMapping("/discount")
 @RestController
 public class DiscountController {
-	@Autowired
-	private BookDiscountService service;
-	@GetMapping("/item")
-	public ResponseResult list() {
-		List<DiscountedBook>list=service.selectAll();
-		Map<String, Object>map=new HashMap<>();
-		map.put("list",list);
-		return ResponseResult.ok().data(map);
-	}
+    @Autowired
+    private BookDiscountService service;
+
+    @GetMapping("/item")
+    public ResponseResult list() {
+        List<DiscountedBook> list = service.selectAll();
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        return ResponseResult.ok().data(map);
+    }
 }

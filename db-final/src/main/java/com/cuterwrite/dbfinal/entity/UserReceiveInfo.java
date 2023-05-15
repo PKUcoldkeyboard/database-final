@@ -4,66 +4,54 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class UserReceiveInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 用户id
      */
     private Long userId;
-
     /**
      * 收货人姓名
      */
     private String receiverName;
-
     /**
      * 收货电话
      */
     private String phoneNumber;
-
     /**
      * 邮政编码
      */
     private String postCode;
-
     /**
      * 收货地省份
      */
     private String province;
-
     /**
      * 收货地城市
      */
     private String city;
-
     /**
      * 收货地县/乡镇
      */
     private String region;
-
     /**
      * 具体收货地址
      */
     private String detailAddress;
-
     /**
      * 记录创建时间
      */
     private Date createTime;
-
     /**
      * 记录修改时间
      */
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -166,16 +154,16 @@ public class UserReceiveInfo implements Serializable {
         }
         UserReceiveInfo other = (UserReceiveInfo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getReceiverName() == null ? other.getReceiverName() == null : this.getReceiverName().equals(other.getReceiverName()))
-            && (this.getPhoneNumber() == null ? other.getPhoneNumber() == null : this.getPhoneNumber().equals(other.getPhoneNumber()))
-            && (this.getPostCode() == null ? other.getPostCode() == null : this.getPostCode().equals(other.getPostCode()))
-            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
-            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
-            && (this.getRegion() == null ? other.getRegion() == null : this.getRegion().equals(other.getRegion()))
-            && (this.getDetailAddress() == null ? other.getDetailAddress() == null : this.getDetailAddress().equals(other.getDetailAddress()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getReceiverName() == null ? other.getReceiverName() == null : this.getReceiverName().equals(other.getReceiverName()))
+                && (this.getPhoneNumber() == null ? other.getPhoneNumber() == null : this.getPhoneNumber().equals(other.getPhoneNumber()))
+                && (this.getPostCode() == null ? other.getPostCode() == null : this.getPostCode().equals(other.getPostCode()))
+                && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
+                && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
+                && (this.getRegion() == null ? other.getRegion() == null : this.getRegion().equals(other.getRegion()))
+                && (this.getDetailAddress() == null ? other.getDetailAddress() == null : this.getDetailAddress().equals(other.getDetailAddress()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
     }
 
     @Override

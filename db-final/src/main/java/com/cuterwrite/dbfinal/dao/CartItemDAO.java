@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CartItemDAO extends MyBatisBaseDao<CartItem, Long> {
-	List<BookAndCart>selectAll();
-	BookAndCart selectOne(Long id);
-	Long selectLast();
+    List<BookAndCart> selectAll();
+
+    BookAndCart selectOne(Long id);
+
+    Long selectLast();
 }

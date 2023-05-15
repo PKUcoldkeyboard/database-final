@@ -8,39 +8,40 @@ import org.springframework.stereotype.Service;
 
 import com.cuterwrite.dbfinal.service.RedisService;
 
-/**  
+/**
  * redis操作实现类
+ *
  * @author Pang S.Z.
- * @create 2020-10-06 23:02:42 
+ * @create 2020-10-06 23:02:42
  */
 @Service
-public class RedisServiceImpl implements RedisService{
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
-	
-	@Override
-	public void set(String key, String value) {
-		stringRedisTemplate.opsForValue().set(key, value);
-	}
+public class RedisServiceImpl implements RedisService {
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
-	@Override
-	public String get(String key) {
-		return stringRedisTemplate.opsForValue().get(key);
-	}
+    @Override
+    public void set(String key, String value) {
+        stringRedisTemplate.opsForValue().set(key, value);
+    }
 
-	@Override
-	public boolean expire(String key, long expire) {
-		return stringRedisTemplate.expire(key, expire,TimeUnit.SECONDS);
-	}
+    @Override
+    public String get(String key) {
+        return stringRedisTemplate.opsForValue().get(key);
+    }
 
-	@Override
-	public void remove(String key) {
-		stringRedisTemplate.delete(key);
-	}
+    @Override
+    public boolean expire(String key, long expire) {
+        return stringRedisTemplate.expire(key, expire, TimeUnit.SECONDS);
+    }
 
-	@Override
-	public Long increment(String key, long delta) {
-		return stringRedisTemplate.opsForValue().increment(key,delta);
-	}
+    @Override
+    public void remove(String key) {
+        stringRedisTemplate.delete(key);
+    }
+
+    @Override
+    public Long increment(String key, long delta) {
+        return stringRedisTemplate.opsForValue().increment(key, delta);
+    }
 
 }

@@ -5,41 +5,34 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class BookFullReduction implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 图书id
      */
     private Long bookId;
-
     /**
      * 商品满足金额
      */
     private BigDecimal fullPrice;
-
     /**
      * 商品减少金额
      */
     private BigDecimal reducePrice;
-
     /**
      * 记录创建时间
      */
     private Date createTime;
-
     /**
      * 记录修改时间
      */
     private Date modifyTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -102,11 +95,11 @@ public class BookFullReduction implements Serializable {
         }
         BookFullReduction other = (BookFullReduction) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
-            && (this.getFullPrice() == null ? other.getFullPrice() == null : this.getFullPrice().equals(other.getFullPrice()))
-            && (this.getReducePrice() == null ? other.getReducePrice() == null : this.getReducePrice().equals(other.getReducePrice()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
+                && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
+                && (this.getFullPrice() == null ? other.getFullPrice() == null : this.getFullPrice().equals(other.getFullPrice()))
+                && (this.getReducePrice() == null ? other.getReducePrice() == null : this.getReducePrice().equals(other.getReducePrice()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
     }
 
     @Override

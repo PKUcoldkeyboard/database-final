@@ -5,91 +5,74 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 订单编号
      */
     private String orderId;
-
     /**
      * 用户id
      */
     private Long userId;
-
     /**
      * 订单总金额
      */
     private BigDecimal totalAmount;
-
     /**
      * 实际支付金额
      */
     private BigDecimal payAmount;
-
     /**
      * 运费
      */
     private BigDecimal freightAmount;
-
     /**
      * 优惠券抵扣金额
      */
     private BigDecimal couponAmount;
-
     /**
      * 满减金额
      */
     private BigDecimal promotionAmount;
-
     /**
      * 确认收货状态：0->未确认，1->已确认
      */
     private Integer confirmStatus;
-
     /**
      * 订单状态：0->代付款；1->代发货;2->已发货;3->已完成;4->已关闭；5->无效订单
      */
     private Integer status;
-
     /**
      * 删除订单状态：0->未删除，1->已删除
      */
     private Integer deleteStatus;
-
     /**
      * 订单备注
      */
     private String note;
-
     /**
      * 记录创建时间
      */
     private Date createTime;
-
     /**
      * 记录修改时间
      */
     private Date modifyTime;
-
     /**
      * 确认收货时间
      */
     private Date receiveTime;
-
     /**
      * 支付时间
      */
     private Date payTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -232,21 +215,21 @@ public class Order implements Serializable {
         }
         Order other = (Order) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getTotalAmount() == null ? other.getTotalAmount() == null : this.getTotalAmount().equals(other.getTotalAmount()))
-            && (this.getPayAmount() == null ? other.getPayAmount() == null : this.getPayAmount().equals(other.getPayAmount()))
-            && (this.getFreightAmount() == null ? other.getFreightAmount() == null : this.getFreightAmount().equals(other.getFreightAmount()))
-            && (this.getCouponAmount() == null ? other.getCouponAmount() == null : this.getCouponAmount().equals(other.getCouponAmount()))
-            && (this.getPromotionAmount() == null ? other.getPromotionAmount() == null : this.getPromotionAmount().equals(other.getPromotionAmount()))
-            && (this.getConfirmStatus() == null ? other.getConfirmStatus() == null : this.getConfirmStatus().equals(other.getConfirmStatus()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getDeleteStatus() == null ? other.getDeleteStatus() == null : this.getDeleteStatus().equals(other.getDeleteStatus()))
-            && (this.getNote() == null ? other.getNote() == null : this.getNote().equals(other.getNote()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
-            && (this.getReceiveTime() == null ? other.getReceiveTime() == null : this.getReceiveTime().equals(other.getReceiveTime()))
-            && (this.getPayTime() == null ? other.getPayTime() == null : this.getPayTime().equals(other.getPayTime()));
+                && (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getTotalAmount() == null ? other.getTotalAmount() == null : this.getTotalAmount().equals(other.getTotalAmount()))
+                && (this.getPayAmount() == null ? other.getPayAmount() == null : this.getPayAmount().equals(other.getPayAmount()))
+                && (this.getFreightAmount() == null ? other.getFreightAmount() == null : this.getFreightAmount().equals(other.getFreightAmount()))
+                && (this.getCouponAmount() == null ? other.getCouponAmount() == null : this.getCouponAmount().equals(other.getCouponAmount()))
+                && (this.getPromotionAmount() == null ? other.getPromotionAmount() == null : this.getPromotionAmount().equals(other.getPromotionAmount()))
+                && (this.getConfirmStatus() == null ? other.getConfirmStatus() == null : this.getConfirmStatus().equals(other.getConfirmStatus()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getDeleteStatus() == null ? other.getDeleteStatus() == null : this.getDeleteStatus().equals(other.getDeleteStatus()))
+                && (this.getNote() == null ? other.getNote() == null : this.getNote().equals(other.getNote()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
+                && (this.getReceiveTime() == null ? other.getReceiveTime() == null : this.getReceiveTime().equals(other.getReceiveTime()))
+                && (this.getPayTime() == null ? other.getPayTime() == null : this.getPayTime().equals(other.getPayTime()));
     }
 
     @Override

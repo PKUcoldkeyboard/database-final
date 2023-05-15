@@ -11,48 +11,44 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * 
  * @author Pang S.Z.
  * @create 2020-10-16 00:03:07
  */
-public class User implements Serializable, UserDetails{
+public class User implements Serializable, UserDetails {
+    private static final long serialVersionUID = 1L;
     /**
      * 用户id
      */
     private Integer id;
-
     /**
      * 用户账号
      */
     private String username;
-
     /**
      * 密码
      */
     private String password;
-    
     /*
      * 用户角色
      */
     private List<Role> roles;
 
-    private static final long serialVersionUID = 1L;
-    
     public List<Role> getRoles() {
-		return roles;
-	}
+        return roles;
+    }
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
+
     @Override
     public String getUsername() {
         return username;
@@ -61,6 +57,7 @@ public class User implements Serializable, UserDetails{
     public void setUsername(String username) {
         this.username = username;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -83,8 +80,8 @@ public class User implements Serializable, UserDetails{
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
+                && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
     }
 
     @Override
@@ -111,32 +108,32 @@ public class User implements Serializable, UserDetails{
         return sb.toString();
     }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority>authorities=new ArrayList<>();
-		for(Role role : roles) {
-			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-		}
-		return authorities;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        }
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

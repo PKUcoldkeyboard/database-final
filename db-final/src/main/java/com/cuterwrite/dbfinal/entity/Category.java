@@ -3,21 +3,18 @@ package com.cuterwrite.dbfinal.entity;
 import java.io.Serializable;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class Category implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 分类名
      */
     private String name;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -48,7 +45,7 @@ public class Category implements Serializable {
         }
         Category other = (Category) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()));
     }
 
     @Override

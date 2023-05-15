@@ -5,66 +5,54 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class UserStatisticsInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 用户id
      */
     private Long userId;
-
     /**
      * 消费金额
      */
     private BigDecimal consumeAmount;
-
     /**
      * 登录次数
      */
     private Integer loginCount;
-
     /**
      * 订单数量
      */
     private Integer orderCount;
-
     /**
      * 优惠券数量
      */
     private Integer couponCount;
-
     /**
      * 收藏书籍数量
      */
     private Integer collectBookCount;
-
     /**
      * 收藏评论数量
      */
     private Integer collectCommentCount;
-
     /**
      * 最近订单日期
      */
     private Date recentOrderTime;
-
     /**
      * 记录修改时间
      */
     private Date modifyTime;
-
     /**
      * 记录创建时间
      */
     private Date createTime;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -167,16 +155,16 @@ public class UserStatisticsInfo implements Serializable {
         }
         UserStatisticsInfo other = (UserStatisticsInfo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getConsumeAmount() == null ? other.getConsumeAmount() == null : this.getConsumeAmount().equals(other.getConsumeAmount()))
-            && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
-            && (this.getOrderCount() == null ? other.getOrderCount() == null : this.getOrderCount().equals(other.getOrderCount()))
-            && (this.getCouponCount() == null ? other.getCouponCount() == null : this.getCouponCount().equals(other.getCouponCount()))
-            && (this.getCollectBookCount() == null ? other.getCollectBookCount() == null : this.getCollectBookCount().equals(other.getCollectBookCount()))
-            && (this.getCollectCommentCount() == null ? other.getCollectCommentCount() == null : this.getCollectCommentCount().equals(other.getCollectCommentCount()))
-            && (this.getRecentOrderTime() == null ? other.getRecentOrderTime() == null : this.getRecentOrderTime().equals(other.getRecentOrderTime()))
-            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getConsumeAmount() == null ? other.getConsumeAmount() == null : this.getConsumeAmount().equals(other.getConsumeAmount()))
+                && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
+                && (this.getOrderCount() == null ? other.getOrderCount() == null : this.getOrderCount().equals(other.getOrderCount()))
+                && (this.getCouponCount() == null ? other.getCouponCount() == null : this.getCouponCount().equals(other.getCouponCount()))
+                && (this.getCollectBookCount() == null ? other.getCollectBookCount() == null : this.getCollectBookCount().equals(other.getCollectBookCount()))
+                && (this.getCollectCommentCount() == null ? other.getCollectCommentCount() == null : this.getCollectCommentCount().equals(other.getCollectCommentCount()))
+                && (this.getRecentOrderTime() == null ? other.getRecentOrderTime() == null : this.getRecentOrderTime().equals(other.getRecentOrderTime()))
+                && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()));
     }
 
     @Override

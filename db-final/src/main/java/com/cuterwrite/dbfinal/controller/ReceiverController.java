@@ -19,30 +19,31 @@ import com.cuterwrite.dbfinal.service.ReceiverService;
 
 import cn.hutool.core.bean.BeanUtil;
 
-/**  
+/**
  * @author Pang S.Z.
- * @create 2021-01-24 09:10:32 
+ * @create 2021-01-24 09:10:32
  */
 @RequestMapping("/receiver")
 @RestController
 public class ReceiverController {
-	@Autowired
-	ReceiverService receiverService;
-	@Autowired
-	UserDAO dao;
-	
-	@GetMapping("/info")
-	public ResponseResult getInfo(@RequestParam String username) {
-		return ResponseResult.ok().data(BeanUtil.beanToMap(receiverService.getInfo(username)));
-	}
-	@PostMapping("/info/{username}")
-	public ResponseResult addInfo(@PathVariable("username") String username,
-								  @RequestBody UserReceiveInfo info) {
-		User user=dao.findByUsername(username);
-		info.setUserId(user.getId().longValue());
-		info.setCreateTime(new Date());
-		info.setModifyTime(new Date());
-		receiverService.insert(info);
-		return ResponseResult.ok();
-	}
+    @Autowired
+    ReceiverService receiverService;
+    @Autowired
+    UserDAO dao;
+
+    @GetMapping("/info")
+    public ResponseResult getInfo(@RequestParam String username) {
+        return ResponseResult.ok().data(BeanUtil.beanToMap(receiverService.getInfo(username)));
+    }
+
+    @PostMapping("/info/{username}")
+    public ResponseResult addInfo(@PathVariable("username") String username,
+                                  @RequestBody UserReceiveInfo info) {
+        User user = dao.findByUsername(username);
+        info.setUserId(user.getId().longValue());
+        info.setCreateTime(new Date());
+        info.setModifyTime(new Date());
+        receiverService.insert(info);
+        return ResponseResult.ok();
+    }
 }

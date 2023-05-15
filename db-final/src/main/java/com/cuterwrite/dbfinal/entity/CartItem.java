@@ -5,46 +5,38 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class CartItem implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
     private Long id;
-
     /**
      * 图书id
      */
     private Long bookId;
-
     /**
      * 购买数量
      */
     private Integer quantity;
-
     /**
      * 添加到购物车的价格
      */
     private BigDecimal price;
-
     /**
      * 记录创建时间
      */
     private Date createTime;
-
     /**
      * 记录修改时间
      */
     private Date modifyTime;
-
     /**
      * 用户表id
      */
     private Long userId;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -115,12 +107,12 @@ public class CartItem implements Serializable {
         }
         CartItem other = (CartItem) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
-            && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
-            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()));
+                && (this.getBookId() == null ? other.getBookId() == null : this.getBookId().equals(other.getBookId()))
+                && (this.getQuantity() == null ? other.getQuantity() == null : this.getQuantity().equals(other.getQuantity()))
+                && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()))
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()));
     }
 
     @Override

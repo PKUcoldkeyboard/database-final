@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDAO extends MyBatisBaseDao<User, Integer> {
-	User findByUsername(String username);
-	
-	int insertUserRole(User userToAdd);
-	
-	int update(User user);
-	
-	int updateUserRole(User user);
+    User findByUsername(String username);
+
+    int insertUserRole(User userToAdd);
+
+    int update(User user);
+
+    int updateUserRole(User user);
 }

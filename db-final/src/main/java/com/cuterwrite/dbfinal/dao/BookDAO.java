@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BookDAO extends MyBatisBaseDao<Book, Long> {
-	List<Book> selectAll();
+    List<Book> selectAll();
 }

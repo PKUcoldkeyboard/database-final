@@ -15,57 +15,57 @@ import com.github.pagehelper.PageHelper;
 
 import cn.hutool.json.JSONUtil;
 
-/**  
+/**
  * @author Pang S.Z.
- * @create 2021-01-23 14:01:50 
+ * @create 2021-01-23 14:01:50
  */
 @Service
-public class BookServiceImpl implements BookService{
-	@Autowired
-	BookDAO dao;
-	@Autowired
-	RedisService redisService;
-	@Autowired
-	BookSearchService bookSearchService;
-	
-	@Override
-	public int insert(Book book) {
-		redisService.set("book"+book.getId(), JSONUtil.toJsonStr(book));
-		bookSearchService.create(book.getId());
-		return dao.insert(book);
-	}
+public class BookServiceImpl implements BookService {
+    @Autowired
+    BookDAO dao;
+    @Autowired
+    RedisService redisService;
+    @Autowired
+    BookSearchService bookSearchService;
 
-	@Override
-	public int update(Long id, Book book) {
-		redisService.set("book"+id, JSONUtil.toJsonStr(book));		
-		int value= dao.updateByPrimaryKey(book);
-		bookSearchService.update(id);
-		return value;
-	}
+    @Override
+    public int insert(Book book) {
+        redisService.set("book" + book.getId(), JSONUtil.toJsonStr(book));
+        bookSearchService.create(book.getId());
+        return dao.insert(book);
+    }
 
-	@Override
-	public Book select(Long id) {
-		//先从缓存中获取
-		String value=redisService.get("book"+id);
-		if(value!=null) {
-			return JSONUtil.toBean(value, Book.class);
-		}
-		Book book=dao.selectByPrimaryKey(id);
-		redisService.set("book"+id, JSONUtil.toJsonStr(book));
-		return book;
-	}
+    @Override
+    public int update(Long id, Book book) {
+        redisService.set("book" + id, JSONUtil.toJsonStr(book));
+        int value = dao.updateByPrimaryKey(book);
+        bookSearchService.update(id);
+        return value;
+    }
 
-	@Override
-	public int delete(Long id) {
-		redisService.remove("book"+id);
-		bookSearchService.delete(id);
-		return dao.deleteByPrimaryKey(id);
-	}
+    @Override
+    public Book select(Long id) {
+        //先从缓存中获取
+        String value = redisService.get("book" + id);
+        if (value != null) {
+            return JSONUtil.toBean(value, Book.class);
+        }
+        Book book = dao.selectByPrimaryKey(id);
+        redisService.set("book" + id, JSONUtil.toJsonStr(book));
+        return book;
+    }
 
-	@Override
-	public Page<Book> list(Integer pageNum, Integer pageSize) {
-		PageHelper.startPage(pageNum,pageSize);
-		List<Book>bookList=dao.selectAll();
-		return Page.restPage(bookList);
-	}
+    @Override
+    public int delete(Long id) {
+        redisService.remove("book" + id);
+        bookSearchService.delete(id);
+        return dao.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Page<Book> list(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Book> bookList = dao.selectAll();
+        return Page.restPage(bookList);
+    }
 }

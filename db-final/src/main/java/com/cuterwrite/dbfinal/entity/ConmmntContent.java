@@ -3,21 +3,18 @@ package com.cuterwrite.dbfinal.entity;
 import java.io.Serializable;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class ConmmntContent implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 评论id
      */
     private Long commentId;
-
     /**
      * 评论内容
      */
     private String commentContent;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getCommentId() {
         return commentId;
@@ -48,7 +45,7 @@ public class ConmmntContent implements Serializable {
         }
         ConmmntContent other = (ConmmntContent) that;
         return (this.getCommentId() == null ? other.getCommentId() == null : this.getCommentId().equals(other.getCommentId()))
-            && (this.getCommentContent() == null ? other.getCommentContent() == null : this.getCommentContent().equals(other.getCommentContent()));
+                && (this.getCommentContent() == null ? other.getCommentContent() == null : this.getCommentContent().equals(other.getCommentContent()));
     }
 
     @Override

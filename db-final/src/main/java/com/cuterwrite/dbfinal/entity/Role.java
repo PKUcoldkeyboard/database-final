@@ -3,21 +3,18 @@ package com.cuterwrite.dbfinal.entity;
 import java.io.Serializable;
 
 /**
- * @author 
- * 
+ * @author
  */
 public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 权限id
      */
     private Integer roleId;
-
     /**
      * 角色名称
      */
     private String roleName;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getRoleId() {
         return roleId;
@@ -48,7 +45,7 @@ public class Role implements Serializable {
         }
         Role other = (Role) that;
         return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getRoleName() == null ? other.getRoleName() == null : this.getRoleName().equals(other.getRoleName()));
+                && (this.getRoleName() == null ? other.getRoleName() == null : this.getRoleName().equals(other.getRoleName()));
     }
 
     @Override

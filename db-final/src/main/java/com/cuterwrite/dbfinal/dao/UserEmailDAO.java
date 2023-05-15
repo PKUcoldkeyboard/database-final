@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserEmailDAO extends MyBatisBaseDao<UserEmail, Long> {
-	String selectByUsername(String username);
+    String selectByUsername(String username);
 }

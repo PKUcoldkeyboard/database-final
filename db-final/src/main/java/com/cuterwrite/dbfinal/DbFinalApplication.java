@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 public class DbFinalApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DbFinalApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DbFinalApplication.class, args);
+    }
 
 }

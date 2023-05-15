@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BookDiscountDAO extends MyBatisBaseDao<BookDiscount, Long> {
-	List<DiscountedBook>selectAll();
+    List<DiscountedBook> selectAll();
 }
