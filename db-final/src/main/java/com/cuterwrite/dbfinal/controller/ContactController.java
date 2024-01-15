@@ -26,7 +26,7 @@ public class ContactController {
                                @RequestParam String title,
                                @RequestParam String content) {
         String allContent = content + "\n" + xs + name + "\n" + email;
-        mailUtil.sendMail("1800016616@pku.edu.cn", title, allContent);
+        mailUtil.sendMail("xxx@xxx.com", title, allContent);
         return ResponseResult.ok();
     }
 }
